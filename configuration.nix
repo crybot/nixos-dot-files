@@ -8,6 +8,12 @@
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   catppuccin = builtins.fetchTarball "https://github.com/catppuccin/nix/archive/main.tar.gz";
+
+  # Override obsidian with a wrapped version
+  obsidianWithFlag = pkgs.writeShellScriptBin "obsidian" ''
+    #!/bin/sh
+    exec ${pkgs.obsidian}/bin/obsidian --ozone-platform=wayland "$@"
+  '';
 in
 {
   imports =
@@ -104,7 +110,7 @@ in
     vim 
     wl-clipboard
     kitty alacritty fish 
-    rofi
+    rofi-wayland
     waybar
     gcc clang
     python3
@@ -116,14 +122,20 @@ in
     networkmanagerapplet
     telegram-desktop
     cargo
-    btop
-    htop
+    btop htop powertop
     hyprshot
     google-chrome
     pavucontrol
     neofetch
     chezmoi
+    zotero
+    nautilus
+    obsidianWithFlag # unfree
+    dropbox # unfree
+    image-roll
   ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # environment.extraInit = ''
   #   alias vim="nvim"
   # '';
