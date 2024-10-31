@@ -47,6 +47,9 @@
   "hyprland/submap": {
     "format": "<span style=\"italic\">{}</span>"
   },
+  "hyprland/window": {
+    "separate_outputs": true
+  },
   "sway/scratchpad": {
     "format": "{icon} {count}",
     "show-empty": false,
