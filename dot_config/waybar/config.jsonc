@@ -48,7 +48,7 @@
     "format": "<span style=\"italic\">{}</span>"
   },
   "hyprland/window": {
-    "separate_outputs": true
+    "separate-outputs": true
   },
   "sway/scratchpad": {
     "format": "{icon} {count}",
