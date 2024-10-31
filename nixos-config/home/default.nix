@@ -4,6 +4,7 @@
   imports = [
     ./neovim/default.nix
     ./hyprland/default.nix
+    ./firefox/default.nix
   ];
 
   # Home Manager needs a bit of information about you and the

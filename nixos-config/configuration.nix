@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 #TODO: blueman, redshift
-#TODO: firefox with extensions (ublock, lastpass)
 #TODO: install swaync through home manager + settings
 
 #TODO: move common stuff for all hosts here, including home-manager configs
@@ -98,7 +97,6 @@ in
     waybar
     gcc clang
     python3
-    firefox
     nodejs
     swaybg
     swaynotificationcenter libnotify
