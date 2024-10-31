@@ -4,6 +4,7 @@
 
 #TODO: blueman, redshift
 #TODO: firefox with extensions (ublock, lastpass)
+#TODO: install swaync through home manager + settings
 
 #TODO: move common stuff for all hosts here, including home-manager configs
 
