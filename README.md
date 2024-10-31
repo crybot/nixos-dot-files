@@ -7,7 +7,7 @@ chezmoi init crybot/nixos-dot-files --apply  # Pull the dot-files and apply them
 sudo cp /etc/nixos/hardware-configuration.nix ~/nixos-config/hosts/$HOST_NAME/  # Copy your actual hardware configuration
 sudo nixos-rebuild switch --flake ~/nixos-config#$HOST_NAME  # Build the system
 ```
-Then reboot. Subsequent `nixos-rebuild`a will not need you to tag the flake with #$HOST_NAME.
+Then reboot. Subsequent `nixos-rebuild`s will not need you to tag the flake with `#$HOST_NAME`.
 
 ## Optional steps
 To complete the installation you need to log into:
