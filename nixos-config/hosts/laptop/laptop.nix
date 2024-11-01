@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -17,4 +17,7 @@
     enable = true;
     displayManager.gdm.enable = true;
   };
+
+  # Disable to save battery (probably don't need docker here)
+  virtualisation.docker.enable = lib.mkForce false;
 }
