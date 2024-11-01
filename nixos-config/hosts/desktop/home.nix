@@ -24,8 +24,7 @@
       decoration = {
         blur = {
           # To enable blur on waybar we need to also set a transparent color in waybar's style.css, but this would
-          # require dropping catppuccin's background constant and also replicate style.css under each other
-          # configuration that cannot use blur.
+          # require replicate style.css under each other configuration that does not use blur.
           enabled = true; 
           size = 6;
           passes = 2;

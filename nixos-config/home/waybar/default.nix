@@ -1,5 +1,4 @@
 { config, pkgs, lib, ...}:
-
 {
   programs.waybar = {
     enable = true;
@@ -96,11 +95,12 @@
           on-click = "pavucontrol";
         };
 
+
         "custom/power" = {
           format  = "⏻ ";
           tooltip = false;
           menu = "on-click";
-          menu-file = "./power_menu.xml";
+          menu-file = ./power_menu.xml;
           menu-actions = {
             shutdown = "shutdown";
             reboot = "reboot";
