@@ -87,13 +87,13 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
-    wget git
+    wget
     vim 
     wl-clipboard
     kitty 
     fish 
     rofi-wayland
-    waybar
+    # waybar
     gcc clang
     python3
     nodejs

@@ -1,4 +1,3 @@
-@import "mocha.css";
 
 * {
   font-family: "FiraCode Nerd Font";
@@ -8,7 +7,7 @@
 }
 
 window#waybar.fullscreen {
-  background-color: shade(@background, 1.8);
+  background-color: shade(@base, 1.8);
   color: white;
   border-radius: 5px;
 }
@@ -19,8 +18,8 @@ window#waybar.fullscreen button.active {
 
 window#waybar {
   background: transparent;
-  background-color: shade(@background, 1.2);
-  color: @foreground;
+  background-color: shade(@crust, 1.0);
+  color: @text;
   transition-property: background-color;
   transition-duration: 0.2s;
 }
@@ -29,7 +28,7 @@ window#waybar {
   margin: 2px;
   padding-left: 8px;
   padding-right: 20px;
-  color: @foreground;
+  color: @text;
 }
 
 button {
@@ -75,8 +74,8 @@ button:hover {
 }
 
 #backlight {
-  color: @foreground;
-  border-bottom: 2px solid @foreground;
+  color: @text;
+  border-bottom: 2px solid @text;
 }
 
 #temperature {
@@ -197,3 +196,4 @@ button:hover {
 #privacy-item.audio-out {
   background-color: #0069d4;
 }
+
