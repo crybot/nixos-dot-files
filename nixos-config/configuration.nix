@@ -4,7 +4,6 @@
 
 #TODO: blueman, redshift
 #TODO: install swaync through home manager + settings
-
 #TODO: move common stuff for all hosts here, including home-manager configs
 
 { config, pkgs, lib, ... }:
