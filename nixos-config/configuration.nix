@@ -119,6 +119,7 @@ in
     waypaper
     adwaita-icon-theme
     swayosd
+    zathura
   ];
 
   # Hint Electron apps to use Wayland
