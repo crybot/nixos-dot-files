@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-#TODO: blueman, redshift
+#TODO: blueman, redshift, exa
 #TODO: move common stuff for all hosts here
 
 #TODO: home-manager ports:

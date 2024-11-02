@@ -41,6 +41,7 @@
   gtk.catppuccin.enable = true;
 
   programs = {
+    bash.enable = true;
     kitty.enable = true;
     foot.enable = true;
     git = {
@@ -81,4 +82,9 @@
   services.swaync = {
     enable = true;
   };
+
+  home.shellAliases = {
+    cz = "chezmoi";
+  };
+
 }
