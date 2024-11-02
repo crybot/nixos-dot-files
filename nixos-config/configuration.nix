@@ -3,8 +3,13 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 #TODO: blueman, redshift
-#TODO: install swaync through home manager + settings
-#TODO: move common stuff for all hosts here, including home-manager configs
+#TODO: move common stuff for all hosts here
+
+#TODO: home-manager ports:
+# - neovim
+# - swaync
+# - rofi-wayland
+# - btop
 
 { config, pkgs, lib, ... }:
 let
@@ -92,9 +97,7 @@ in
     vim 
     wl-clipboard
     kitty 
-    fish 
     rofi-wayland
-    # waybar
     gcc clang
     python3
     nodejs
@@ -173,10 +176,6 @@ in
   services.libinput.enable = true;
 
   hardware.graphics = {
-    enable = true;
-  };
-
-  programs.fish = {
     enable = true;
   };
 
