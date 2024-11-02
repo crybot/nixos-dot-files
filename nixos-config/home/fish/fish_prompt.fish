@@ -22,7 +22,7 @@ end
 
 # Color the prompt in red on error
 if test $last_status -ne 0
-  set status_color (set_color --bold $fish_color_error)
+  set status_color (set_color $fish_color_error)
   set prompt_status $status_color "[" $last_status "]" $normal
 end
 

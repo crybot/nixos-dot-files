@@ -97,7 +97,6 @@ in
     vim 
     wl-clipboard
     kitty 
-    rofi-wayland
     gcc clang
     python3
     nodejs
