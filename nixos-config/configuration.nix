@@ -7,8 +7,6 @@
 
 #TODO: home-manager ports:
 # - neovim
-# - swaync
-# - rofi-wayland
 # - btop
 
 { config, pkgs, lib, ... }:
@@ -101,7 +99,7 @@ in
     python3
     nodejs
     swaybg
-    swaynotificationcenter libnotify
+    libnotify
     brightnessctl
     networkmanagerapplet
     telegramGnome
@@ -120,6 +118,7 @@ in
     mpv
     waypaper
     adwaita-icon-theme
+    swayosd
   ];
 
   # Hint Electron apps to use Wayland
@@ -236,4 +235,19 @@ in
   };
 
   home-manager.backupFileExtension = "backup";
+
+  systemd.services.swayosd = {
+    enable = true;
+    unitConfig = {
+      Description = "Run swayosd-libinput-backed for detecting keystrokes";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.swayosd}/bin/swayosd-libinput-backend";
+      Restart = "always";
+      RestartSec = "2s";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
 }

@@ -77,5 +77,8 @@
     };
   };
 
+  services.swaync = {
+    enable = true;
+  };
 
 }
