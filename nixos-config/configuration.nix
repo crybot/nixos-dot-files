@@ -236,4 +236,6 @@ in
       data-root = "/data/docker";
     };
   };
+
+  home-manager.backupFileExtension = "backup";
 }

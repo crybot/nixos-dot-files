@@ -6,6 +6,7 @@
     ./hyprland/default.nix
     ./firefox/default.nix
     ./waybar/default.nix
+    ./fish/default.nix
   ];
 
   # Home Manager needs a bit of information about you and the
