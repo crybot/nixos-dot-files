@@ -16,7 +16,8 @@
   home.homeDirectory = "/home/crybot";
 
   # Packages that should be installed to the user profile.
-  home.packages = [
+  home.packages = with pkgs; [
+    playerctl
   ];
 
   # This value determines the Home Manager release that your
@@ -80,5 +81,4 @@
   services.swaync = {
     enable = true;
   };
-
 }
