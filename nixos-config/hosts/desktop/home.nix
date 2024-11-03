@@ -32,6 +32,7 @@
           new_optimizations = true;
           noise = 0.0117;
           vibrancy = 0.1696;
+          popups = true;
         };
       };
       layerrule = [ 
