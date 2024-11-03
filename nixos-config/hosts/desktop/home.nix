@@ -35,6 +35,11 @@
           popups = true;
         };
       };
+      windowrulev2 = [
+        "opacity 0.7 override 0.7 override 0.7 override, class:(blueman)"
+        "opacity 0.7 override 0.7 override 0.7 override, class:(nm-connection-editor)"
+        "opacity 0.7 override 0.7 override 0.7 override, class:(nm-applet)"
+      ];
       layerrule = [ 
         "blur, waybar" # Add blur to waybar
         "blurpopups, waybar "# Blur waybar popups too!
