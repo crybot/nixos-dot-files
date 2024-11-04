@@ -9,6 +9,8 @@
 # - neovim
 # - btop
 
+#TODO: disable firefox autoplay
+
 { config, pkgs, lib, ... }:
 let
   # Override obsidian with a wrapped version that fixes fractional scaling in wayland
@@ -150,6 +152,7 @@ in
     adwaita-icon-theme
     swayosd
     zathura
+    overskride
   ];
 
   programs.hyprland.enable = true;

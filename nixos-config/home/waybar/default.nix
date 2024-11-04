@@ -14,7 +14,18 @@
         spacing = 10;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
-        modules-right = [ "pulseaudio" "network" "cpu" "backlight" "battery" "power-profiles-daemon" "clock" "tray" "custom/power"];
+        modules-right = [ 
+          "pulseaudio"
+          "network"
+          "cpu"
+          "backlight"
+          "battery"
+          "power-profiles-daemon"
+          "clock"
+          "tray"
+          "bluetooth"
+          "custom/power"
+        ];
 
         "hyprland/window" = {
           separate-outputs = true;
@@ -93,6 +104,16 @@
             default = ["" "" " "];
           };
           on-click = "pavucontrol";
+        };
+
+        bluetooth = {
+          on-click = "overskride";
+          format-on = "󰂯";
+          format-off = "󰂲";
+          format-disabled = "";
+          format-connected = "󰂱";
+          tooltip-format-connected = "{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         };
 
 
