@@ -45,7 +45,7 @@ Plug 'nvim-lua/plenary.nvim'                " Required by refactoring.nvim
 
 
 " Others
-Plug 'ekalinin/Dockerfile.vim'
+" Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'lukas-reineke/virt-column.nvim'   " Show a character as colorcolumn
 Plug 'folke/todo-comments.nvim'         " Highlight and search TODO comments
@@ -304,6 +304,9 @@ lspconfig.biome.setup {
 lspconfig.nil_ls.setup {
   capabilities = capabilities,
 }
+lspconfig.dockerls.setup {
+  capabilities = capabilities,
+}
 
 EOF
 
@@ -370,7 +373,7 @@ lua require('mason').setup()
 lua << EOF
 require('mason-lspconfig').setup {
   ensure_installed = {
-    'tinymist', 'texlab', 'pyright', 'biome', 'nil_ls'
+    'tinymist', 'texlab', 'pyright', 'biome', 'nil_ls', 'dockerls'
   }
 }
 EOF
@@ -387,7 +390,7 @@ EOF
 lua << EOF
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "python", "typst", "vim", "lua" },
+  ensure_installed = { "python", "typst", "vim", "lua", "dockerfile" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,

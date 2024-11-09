@@ -110,7 +110,7 @@
           on-click = "overskride";
           format-on = "󰂯";
           format-off = "󰂲";
-          format-disabled = "";
+          format-disabled = "󰂲";
           format-connected = "󰂱";
           tooltip-format-connected = "{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";

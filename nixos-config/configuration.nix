@@ -77,6 +77,7 @@ in
     description = "Marco";
     extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [];
+    shell = pkgs.fish;
   };
   home-manager.backupFileExtension = "backup";
 
@@ -156,6 +157,8 @@ in
   ];
 
   programs.hyprland.enable = true;
+
+  programs.fish.enable = true;
 
   programs.neovim = {
     enable = true;
