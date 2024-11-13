@@ -262,4 +262,8 @@ in
     wantedBy = [ "multi-user.target" ];
   };
 
+  nix.settings = {
+    trusted-users = [ "root" "crybot" ]; # Add your username here if not already present
+  };
+
 }
