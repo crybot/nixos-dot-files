@@ -83,6 +83,19 @@
     enable = true;
   };
 
+  services.gammastep = {
+    enable = true;
+    provider = "manual";
+    latitude = "41.902782";
+    longitude = "12.496365";
+    tray = true;
+    temperature = {
+      day = 5500;
+      night = 3500;
+    };
+  };
+
+
   home.shellAliases = {
     cz = "chezmoi";
   };
