@@ -12,6 +12,102 @@
     };
   };
 
+  programs.hyprlock.enable = true;
+  programs.hyprlock.settings = {
+    # GENERAL
+    general = {
+      disable_loading_bar = true;
+      hide_cursor = true;
+    };
+
+    # BACKGROUND
+    background = [
+      {
+        path = "$HOME/Pictures/backgrounds/dabi3.jpg";
+        blur_passes = 2;
+        blur_size = 6;
+      }
+    ];
+
+    # INPUT FIELD
+    input-field = [
+      {
+        monitor = "";
+        size = "350, 80";
+        outline_thickness = 2;
+        dots_size = 0.2;
+        dots_spacing = 0.35;
+        dots_center = true;
+        font_family = "JetBrains Mono";
+        outer_color = "rgba(0, 0, 0, 0)";
+        inner_color = "rgba(0, 0, 0, 0.2)";
+        font_color = "rgba(255, 255, 255, 1.0)";
+        fade_on_empty = false;
+        rounding = -1;
+        check_color = "rgb(204, 136, 34)";
+        placeholder_text = "Password";
+        hide_input = false;
+        position = "0, -220";
+        halign = "center";
+        valign = "center";
+      }
+    ];
+
+    label = [
+      # DATE
+      {
+        monitor = "";
+        text = "cmd[update:1000] LC_TIME=en_US.UTF-8 date +\"%A, %B %d\"";
+        color = "rgba(242, 243, 244, 0.75)";
+        font_size = 32;
+        font_family = "JetBrains Mono";
+        position = "0, 700";
+        halign = "center";
+        valign = "center";
+      }
+      # TIME
+      {
+        monitor = "";
+        text = "cmd[update:1000] date +\"%-H:%M\"";
+        color = "rgba(242, 243, 244, 0.75)";
+        font_size = 124;
+        font_family = "JetBrains Mono Extrabold";
+        position = "0, 600";
+        halign = "center";
+        valign = "center";
+      }
+      # GREETING
+      { 
+        monitor = "";
+        text = "Hello, crybot";
+        color = "$foreground";
+        font_size = 26;
+        font_family = "JetBrains Mono Italic";
+        position = "0, 135";
+        halign = "center";
+        valign = "center";
+      }
+    ];
+
+    image  = [
+    # PROFILE PICTURE
+      {
+        monitor = "";
+        path = "$HOME/Pictures/backgrounds/bakugo2.jpg";
+        size = 200;
+        border_size = 5;
+        border_color = "rgba(255, 255, 255, 0.8)";
+        position = "0, -60";
+        halign = "center";
+        valign = "center";
+        rounding = -1;
+      }
+    ];
+
+
+
+  };
+
   wayland.windowManager.hyprland = {
     settings = {
       # https://wiki.hyprland.org/Configuring/Variables/#blur

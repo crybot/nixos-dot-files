@@ -128,7 +128,7 @@ in
     vim 
     wl-clipboard
     kitty 
-    gcc clang
+    gcc clang clang-tools
     python3
     nodejs
     swaybg
@@ -154,6 +154,7 @@ in
     swayosd
     zathura
     overskride
+    discord
   ];
 
   programs.hyprland.enable = true;
@@ -181,6 +182,8 @@ in
     '';
   };
 
+  security.pam.services.hyprlock = {};
+
   # Remove sound.enable or set it to false if you had it set previously, as sound.enable is only meant for ALSA-based configurations
   # rtkit is optional but recommended ("Whether to enable the RealtimeKit system service, which hands out realtime
   # scheduling priority to user processes on demand. For example, the PulseAudio server uses this to acquire realtime
@@ -188,8 +191,9 @@ in
 
   security.rtkit.enable = true;
   fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
     noto-fonts
-    nerdfonts
+    # nerdfonts
     font-awesome
     powerline-fonts
     powerline-symbols

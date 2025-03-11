@@ -42,14 +42,16 @@ Plug 'lukas-reineke/indent-blankline.nvim'  " Adds indentation guides
 Plug 'ThePrimeagen/refactoring.nvim'        " Refactoring utilities
 Plug 'andymass/vim-matchup'                 " Extends % to language keywords and constructs
 Plug 'nvim-lua/plenary.nvim'                " Required by refactoring.nvim
-
+Plug 'HiPhish/rainbow-delimiters.nvim'      " Colored nested braces and constructs
 
 " Others
 " Plug 'ekalinin/Dockerfile.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'lukas-reineke/virt-column.nvim'   " Show a character as colorcolumn
 Plug 'folke/todo-comments.nvim'         " Highlight and search TODO comments
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'} " Manage terminal sessions
 " Plug 'jiangmiao/auto-pairs'
+
 
 call plug#end()
 
@@ -108,6 +110,7 @@ tnoremap <Esc> <C-\><C-n>
 tmap <C-l> <Esc>gt
 tmap <C-h> <Esc>gT
 nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <C-t> :ToggleTerm<CR>
 
 nnoremap <silent> <leader>d :lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <leader>tc :TypstPreview<CR>
@@ -307,6 +310,20 @@ lspconfig.nil_ls.setup {
 lspconfig.dockerls.setup {
   capabilities = capabilities,
 }
+lspconfig.clangd.setup({
+  capabilities = capabilities,
+	-- 	cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
+	-- 	init_options = {
+	-- 		fallbackFlags = { "-std=c++17" },
+	-- 	},
+})
+-- lspconfig.opts = {
+-- 	servers = {
+-- 		clangd = {
+-- 			mason = false,
+-- 		},
+-- 	},
+-- }
 
 EOF
 
@@ -373,7 +390,7 @@ lua require('mason').setup()
 lua << EOF
 require('mason-lspconfig').setup {
   ensure_installed = {
-    'tinymist', 'texlab', 'pyright', 'biome', 'nil_ls', 'dockerls'
+    'tinymist', 'texlab', 'pyright', 'biome', 'nil_ls', 'dockerls',
   }
 }
 EOF
@@ -382,8 +399,8 @@ EOF
 "
 lua << EOF
 require('ibl').setup {
-  indent = { char = "┋" },
-  scope = { enabled = false }
+  -- indent = { char = "┋" },
+  scope = { enabled = true }
 }
 EOF
 
@@ -433,3 +450,5 @@ EOF
 lua require("virt-column").setup()
 
 lua require("todo-comments").setup()
+
+lua require("toggleterm").setup()

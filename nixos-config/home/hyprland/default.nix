@@ -7,6 +7,7 @@
     catppuccin.flavor = "mocha";
     catppuccin.accent = "mauve";
     extraConfig = builtins.readFile ./hyprland.conf;
+    # plugins = [ pkgs.hyprlandPlugins.hyprspace ];
   };
 
 }

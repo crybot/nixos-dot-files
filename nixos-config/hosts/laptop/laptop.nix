@@ -15,7 +15,7 @@
 
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
+    # displayManager.gdm.enable = true;
   };
 
   # Disable to save battery (probably don't need docker here)
