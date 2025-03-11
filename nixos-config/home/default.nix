@@ -79,6 +79,12 @@
     };
   };
 
+  programs.bat = {
+    enable = true;
+    catppuccin.enable = true;
+    catppuccin.flavor = "mocha";
+  };
+
   services.swaync = {
     enable = true;
   };
@@ -95,9 +101,9 @@
     };
   };
 
-
   home.shellAliases = {
     cz = "chezmoi";
+    cat = "bat";
   };
 
 }
