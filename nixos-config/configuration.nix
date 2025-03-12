@@ -16,7 +16,7 @@ let
   # Override obsidian with a wrapped version that fixes fractional scaling in wayland
   obsidianWithFlag = pkgs.writeShellScriptBin "obsidian" ''
     #!/bin/sh
-    exec ${pkgs.obsidian}/bin/obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+    exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
   '';
   telegramGnome = pkgs.writeShellScriptBin "telegram-desktop" ''
       #!/bin/sh 
@@ -158,6 +158,7 @@ in
   ];
 
   programs.hyprland.enable = true;
+  programs.hyprland.withUWSM = true;
 
   programs.fish.enable = true;
 
@@ -193,7 +194,6 @@ in
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     noto-fonts
-    # nerdfonts
     font-awesome
     powerline-fonts
     powerline-symbols

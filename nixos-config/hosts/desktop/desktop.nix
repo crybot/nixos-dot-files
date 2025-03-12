@@ -23,10 +23,12 @@
   services.displayManager = {
     sddm.enable = true;
     sddm.package = pkgs.kdePackages.sddm;
-    sddm.catppuccin.enable = true;
-    sddm.catppuccin.flavor = "mocha";
-    sddm.catppuccin.fontSize = "14";
-    sddm.catppuccin.font = "Noto Sans";
+    sddm.catppuccin.enable = false;
+    # sddm.catppuccin.flavor = "mocha";
+    # sddm.catppuccin.fontSize = "14";
+    # sddm.catppuccin.font = "Noto Sans";
   };
+
+  # catppuccin.sddm.enable = false;
 
 }

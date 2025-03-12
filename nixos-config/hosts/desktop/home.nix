@@ -13,6 +13,7 @@
   };
 
   wayland.windowManager.hyprland = {
+    systemd.enable = false;
     settings = {
       cursor = {
         no_hardware_cursors = true;
