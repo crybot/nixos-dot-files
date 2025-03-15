@@ -20,6 +20,8 @@
       };
       monitor = [
         "HDMI-A-1, disable"
+        "HDMI-A-2, disable"
+
       ];
       # https://wiki.hyprland.org/Configuring/Variables/#blur
       decoration = {

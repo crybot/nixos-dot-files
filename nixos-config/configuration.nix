@@ -128,7 +128,7 @@ in
     vim 
     wl-clipboard
     kitty 
-    gcc clang clang-tools
+    gcc clang clang-tools gnumake
     python3
     nodejs
     swaybg
