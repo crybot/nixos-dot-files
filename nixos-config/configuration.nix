@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-#TODO: redshift, exa
+#TODO: exa
 #TODO: move common stuff for all hosts here
 
 #TODO: home-manager ports:
@@ -16,7 +16,8 @@ let
   # Override obsidian with a wrapped version that fixes fractional scaling in wayland
   obsidianWithFlag = pkgs.writeShellScriptBin "obsidian" ''
     #!/bin/sh
-    exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    # exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    exec ${pkgs.obsidian}/bin/obsidian --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
   '';
   telegramGnome = pkgs.writeShellScriptBin "telegram-desktop" ''
       #!/bin/sh 
@@ -38,7 +39,7 @@ in
 
   swapDevices = [{
       device = "/swapfile";
-      size = 16 * 1024; # 16GB
+      size = 64 * 1024; # 16GB
     }];
 
   hardware.bluetooth.enable = true;
@@ -83,16 +84,16 @@ in
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-    xdgOpenUsePortal = true;
-    config = lib.mkDefault {
-      common = {
-        default = [
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-      };
-    };
+    # extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    # xdgOpenUsePortal = true;
+    # config = lib.mkDefault {
+    #   common = {
+    #     default = [
+    #       "gtk"
+    #     ];
+    #     "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+    #   };
+    # };
   };
   # Hint Electron apps to use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
