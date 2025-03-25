@@ -49,6 +49,18 @@
       userName  = "crybot";
       userEmail = "crybot@hotmail.it";
     };
+    btop = {
+      enable = true;
+      package = pkgs.btop-cuda;
+      settings = {
+        vim_keys = true;
+        update_ms = 100;
+        mem_graphs = false;
+        proc_per_core = true;
+        io_mode = true;
+        disks_filter = "exclude=/boot";
+      };
+    };
   };
 
   programs.alacritty = {

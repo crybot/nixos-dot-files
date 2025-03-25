@@ -125,11 +125,13 @@ in
   #########################################################################################
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    ntfs3g # for mounting ntfs partitions
+    unzip lbzip2 # unzip + parallel gzip2 implementation
     wget
     vim 
     wl-clipboard
     kitty 
-    gcc clang clang-tools gnumake
+    gcc clang clang-tools gnumake # development tools
     python3
     nodejs
     swaybg
@@ -138,7 +140,7 @@ in
     networkmanagerapplet
     telegramGnome
     cargo
-    btop htop powertop
+    htop powertop
     hyprshot
     google-chrome
     pavucontrol
