@@ -5,7 +5,7 @@
     enable = true;
     package = pkgs.rofi-wayland;
     extraConfig = {
-      modi = "run,drun,window";
+      modi = "run,drun,window,keys,filebrowser";
       icon-theme = "Oranchelo";
       show-icons = true;
       terminal = "alacritty";
@@ -20,7 +20,8 @@
       sidebar-mode = true;
     };
     location = "center";
-    catppuccin.flavor = "frappe";
+    catppuccin.enable = true;
+    catppuccin.flavor = "mocha";
   };
 
 }

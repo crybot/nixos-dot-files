@@ -156,8 +156,9 @@ in
     adwaita-icon-theme
     swayosd
     zathura
-    overskride
+    overskride # bluetooth (alternative to blueman, consider removing this)
     discord
+    wev # outputs wayland events (keypresses, etc.)
   ];
 
   programs.hyprland.enable = true;

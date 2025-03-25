@@ -118,4 +118,10 @@
     cat = "bat";
   };
 
+  # scripts 
+  home.file."scripts/rofi-hyprshot.sh" = {
+    source = ./rofi/rofi-hyprshot.sh;
+    executable = true;
+  };
+
 }
