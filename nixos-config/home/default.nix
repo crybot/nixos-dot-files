@@ -97,6 +97,13 @@
     catppuccin.flavor = "mocha";
   };
 
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+    colors = "always";
+  };
+
   services.swaync = {
     enable = true;
   };
@@ -116,6 +123,7 @@
   home.shellAliases = {
     cz = "chezmoi";
     cat = "bat";
+    ls = "eza -l --no-user --no-permissions --no-time --grid --icons=always";
   };
 
   # scripts 
