@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 # Display a simple rofi menu with three options:
-choice=$(printf "Selection\nWindow\nScreen" | rofi -dmenu -p "Hyprshot")
+SELECTION=" Selection"
+WINDOW=" Window"
+SCREEN=" Screen"
+choice=$(printf "$SELECTION\n$WINDOW\n$SCREEN" | rofi -dmenu -i -p "  Hyprshot")
 out_dir=$HOME/Pictures/Screenshots
 
 case "$choice" in
-  "Selection")
-    # Capture a region (if hyprshot supports a selection mode, e.g., with -s)
+  $SELECTION)
+    # Capture a region
     hyprshot --mode region --output-folder $out_dir
     ;;
-  "Window")
-    # Capture the active window (assuming hyprshot uses -w for window capture)
+  $WINDOW)
+    # Capture the selected window
     hyprshot --mode window --output-folder $out_dir
     ;;
-  "Screen")
-    # Capture the full screen (default behavior, no extra flag)
+  $SCREEN)
+    # Capture the full screen
     hyprshot --mode output --output-folder $out_dir
     ;;
   *)

@@ -17,6 +17,8 @@
       display-run = "   Run ";
       display-window = " 󰕰  Window";
       display-Network = " 󰤨  Network";
+      display-keys = "   Keys";
+      display-filebrowser = "   Files";
       sidebar-mode = true;
     };
     location = "center";
