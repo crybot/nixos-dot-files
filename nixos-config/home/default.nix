@@ -130,6 +130,7 @@
     cz = "chezmoi";
     cat = "bat";
     ls = "eza -l --no-user --no-permissions --no-time --grid --icons=always";
+    lss = "ls --total-size";
   };
 
   # Default applications
