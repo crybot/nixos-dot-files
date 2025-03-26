@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-#TODO: exa
 #TODO: home-manager ports:
 # - neovim
 
@@ -147,7 +146,6 @@ in
     waypaper
     adwaita-icon-theme
     swayosd
-    zathura
     overskride # bluetooth (alternative to blueman, consider removing this)
     discord
     wev # outputs wayland events (keypresses, etc.)

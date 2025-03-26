@@ -104,6 +104,11 @@
     colors = "always";
   };
 
+  programs.zathura = {
+    enable = true;
+    catppuccin.enable = false;
+  };
+
   services.swaync = {
     enable = true;
   };
@@ -120,10 +125,22 @@
     };
   };
 
+  # Aliases
   home.shellAliases = {
     cz = "chezmoi";
     cat = "bat";
     ls = "eza -l --no-user --no-permissions --no-time --grid --icons=always";
+  };
+
+  # Default applications
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "application/pdf" = ["zathura"];
+    };
+    defaultApplications = {
+      "application/pdf" = ["zathura"];
+    };
   };
 
   # scripts 
@@ -131,5 +148,6 @@
     source = ./rofi/rofi-hyprshot.sh;
     executable = true;
   };
+
 
 }
