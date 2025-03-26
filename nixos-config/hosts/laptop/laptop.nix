@@ -8,7 +8,16 @@
 
   networking.hostName = "nixos-laptop"; # Define your hostname.
 
-  # Works for >=  8th gen Intel cpus onward
+  # use zen kernel for better responsiveness
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+
+  swapDevices = [{
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB
+    }];
+
+  # Works for >= 8th gen Intel cpus onward
   hardware.graphics.extraPackages = with pkgs; [
     intel-compute-runtime
   ];

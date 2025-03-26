@@ -8,6 +8,14 @@
 
   networking.hostName = "nixos-desktop"; # Define your hostname.
 
+  # use latest kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  swapDevices = [{
+      device = "/swapfile";
+      size = 64 * 1024; # 16GB
+    }];
+
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;

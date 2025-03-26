@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Display a simple rofi menu with three options:
-choice=$(printf "Selection\nWindow\nScreen" | rofi -dmenu -p "Hyprshot:")
+choice=$(printf "Selection\nWindow\nScreen" | rofi -dmenu -p "Hyprshot")
 out_dir=$HOME/Pictures/Screenshots
 
 case "$choice" in

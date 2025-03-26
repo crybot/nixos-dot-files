@@ -3,11 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 #TODO: exa
-#TODO: move common stuff for all hosts here
-
 #TODO: home-manager ports:
 # - neovim
-# - btop
 
 #TODO: disable firefox autoplay
 
@@ -36,11 +33,6 @@ in
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  swapDevices = [{
-      device = "/swapfile";
-      size = 64 * 1024; # 16GB
-    }];
 
   hardware.bluetooth.enable = true;
   hardware.graphics = {

@@ -12,11 +12,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  # boot.kernelParams = [ "reboot=force" ];
-  # boot.kernelParams = [ "reboot=apci" "usbcore.autosuspend=-1" ];
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
-  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/87aa2087-d624-45a8-ab23-204523d46e43";
