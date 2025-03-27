@@ -33,7 +33,11 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   hardware.graphics = {
     enable = true;
   };
