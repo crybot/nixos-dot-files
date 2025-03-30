@@ -110,7 +110,6 @@ tnoremap <Esc> <C-\><C-n>
 tmap <C-l> <Esc>gt
 tmap <C-h> <Esc>gT
 nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <C-t> :ToggleTerm<CR>
 
 nnoremap <silent> <leader>d :lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <leader>tc :TypstPreview<CR>
@@ -484,4 +483,9 @@ lua require("virt-column").setup()
 
 lua require("todo-comments").setup()
 
-lua require("toggleterm").setup()
+lua << EOF
+  require("toggleterm").setup({
+  open_mapping = [[<c-t>]],
+  start_in_insert = true,
+})
+EOF
