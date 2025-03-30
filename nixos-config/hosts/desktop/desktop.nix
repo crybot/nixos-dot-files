@@ -31,6 +31,7 @@
   services.displayManager = {
     sddm.enable = true;
     sddm.package = pkgs.kdePackages.sddm;
+    # sddm.wayland.enable = true;
     # sddm.catppuccin.enable = false;
     sddm.catppuccin.enable = true;
     sddm.catppuccin.flavor = "mocha";

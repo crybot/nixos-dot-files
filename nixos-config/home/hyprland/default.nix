@@ -3,6 +3,7 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = false;
     catppuccin.enable = true;
     catppuccin.flavor = "mocha";
     catppuccin.accent = "mauve";

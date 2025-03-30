@@ -265,11 +265,44 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   focusable = true,
 })
 
+-- Global variable to track focus state (default true)
+local nvim_focused = true
+
+-- Update when Neovim gains focus
+vim.api.nvim_create_autocmd("FocusGained", {
+  callback = function()
+    nvim_focused = true
+  end,
+})
+
+-- Update when Neovim loses focus
+vim.api.nvim_create_autocmd("FocusLost", {
+  callback = function()
+    nvim_focused = false
+  end,
+})
+
+-- Boolean helper function to check if Neovim is focused
+local function is_nvim_focused()
+  return nvim_focused
+end
+
+-- Returns true if there's already an hover window opened
+local function is_hover_open()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative and config.relative ~= "" then
+      return true
+    end
+  end
+  return false
+end
+
 -- Check if the LSP supports hover for the current buffer
 function show_hover_if_supported()
   local clients = vim.lsp.buf_get_clients(0)
   for _, client in pairs(clients) do
-    if client.supports_method("textDocument/hover") then
+    if is_nvim_focused() and client.supports_method("textDocument/hover") and not is_hover_open() then
       vim.lsp.buf.hover()
       return
     end

@@ -120,6 +120,7 @@ in
   #########################################################################################
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    parallel # gnu parallel (useful for scripting)
     ntfs3g # for mounting ntfs partitions
     unzip lbzip2 # unzip + parallel gzip2 implementation
     wget
@@ -201,9 +202,9 @@ in
   #                                                                                       #
   #########################################################################################
   # List services that you want to enable:
-  services.xserver = {
-    enable = true;
-  };
+    services.xserver = {
+      enable = true;
+    };
 
   services.libinput.enable = true;
 
@@ -230,6 +231,7 @@ in
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
   services.blueman.enable = true;
+  services.udisks2.enable = true; # automount of usb storage devices
 
   # Docker
   virtualisation.docker = {
