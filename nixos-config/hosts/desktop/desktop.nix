@@ -28,17 +28,4 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia-container-toolkit.enable = true;
 
-  services.displayManager = {
-    sddm.enable = true;
-    sddm.package = pkgs.kdePackages.sddm;
-    # sddm.wayland.enable = true;
-    # sddm.catppuccin.enable = false;
-    sddm.catppuccin.enable = true;
-    sddm.catppuccin.flavor = "mocha";
-    sddm.catppuccin.fontSize = "14";
-    sddm.catppuccin.font = "Noto Sans";
-  };
-
-  # catppuccin.sddm.enable = false;
-
 }

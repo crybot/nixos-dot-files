@@ -204,11 +204,11 @@ in
   #                                                                                       #
   #########################################################################################
   # List services that you want to enable:
-    services.xserver = {
-      enable = true;
-    };
+  services.xserver = {
+    enable = true;
+  };
 
-  services.libinput.enable = true;
+  # services.libinput.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -230,11 +230,21 @@ in
     jack.enable = true;
   };
 
+  services.displayManager = {
+    sddm.enable = true;
+    sddm.package = pkgs.kdePackages.sddm;
+    sddm.catppuccin.enable = true;
+    sddm.catppuccin.flavor = "mocha";
+    sddm.catppuccin.fontSize = "14";
+    sddm.catppuccin.font = "Noto Sans";
+  };
+
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
   services.blueman.enable = true;
   services.udisks2.enable = true; # automount of usb storage devices
   services.gnome.gnome-keyring.enable = true;
+  # services.getty.autologinUser = "crybot";
 
   # Docker
   virtualisation.docker = {
@@ -272,5 +282,6 @@ in
   nix.settings = {
     trusted-users = [ "root" "crybot" ]; # Add your username here if not already present
   };
+
 
 }
