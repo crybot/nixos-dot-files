@@ -154,6 +154,8 @@ in
     overskride # bluetooth (alternative to blueman, consider removing this)
     discord
     wev # outputs wayland events (keypresses, etc.)
+    srain # irc client (uses gnome-keyring for storing credentials)
+    seahorse # for managing gnome-keyring secrets
   ];
 
   programs.hyprland.enable = true;
@@ -232,6 +234,7 @@ in
   services.gvfs.enable = true;
   services.blueman.enable = true;
   services.udisks2.enable = true; # automount of usb storage devices
+  services.gnome.gnome-keyring.enable = true;
 
   # Docker
   virtualisation.docker = {

@@ -74,6 +74,12 @@ in
 
         };
 
+        TranslateEnabled = false;
+        OfferToSaveLogins = false;
+        PictureInPicture = {
+          enabled = false;
+        };
+
         /* ---- PREFERENCES ---- */
         # Check about:config for options.
         Preferences = { 
