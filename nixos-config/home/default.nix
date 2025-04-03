@@ -158,6 +158,10 @@
     source = ./rofi/rofi-hyprshot.sh;
     executable = true;
   };
+  home.file."scripts/rofi-menu.sh" = {
+    source = ./rofi/rofi-menu.sh;
+    executable = true;
+  };
 
 
 }
