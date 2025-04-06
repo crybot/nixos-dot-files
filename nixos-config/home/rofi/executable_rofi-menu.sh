@@ -30,24 +30,22 @@ fi
 
 out_dir=$HOME/Pictures/Screenshots
 
-other=""
-
-# if [[ $mode = "share" ]]; then
-#   other="--clipboard-only"
-# fi
+if [[ ! $ROFI_RETV -eq 1 ]]; then
+  exit 0
+fi
 
 case "$choice" in
   $SELECTION)
     # Capture a region
-    hyprshot --mode region --output-folder $out_dir $other
+    area="region"
     ;;
   $WINDOW)
     # Capture the selected window
-    hyprshot --mode window --output-folder $out_dir $other
+    area="window"
     ;;
   $SCREEN)
     # Capture the full screen
-    hyprshot --mode output --output-folder $out_dir $other
+    area="output"
     ;;
   *)
     # Do nothing if no valid option is selected.
@@ -55,9 +53,4 @@ case "$choice" in
     ;;
 esac
 
-sleep 0.5 # wait for hyprshot to save the image to clipboard (might need to increase delay on other systems)
-
-if [[ $mode = "share" ]]; then
-  xdg-open $(wl-paste --type image/png | curl -F "files[]=@-;filename=screenshot.png" https://uguu.se/upload?output=text)
-fi
-
+coproc ( $HOME/scripts/take-screenshot.sh $area $out_dir $mode > /dev/null 2>&1 )

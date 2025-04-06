@@ -8,7 +8,7 @@
 
   networking.hostName = "nixos-desktop"; # Define your hostname.
 
-  # use latest kernel
+  # use latest kernel 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   swapDevices = [{
@@ -16,6 +16,7 @@
       size = 64 * 1024; # 16GB
     }];
 
+  hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -25,7 +26,11 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia-container-toolkit.enable = true;
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
 
 }

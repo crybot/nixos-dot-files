@@ -162,6 +162,7 @@ in
   programs.hyprland.withUWSM = true;
 
   programs.fish.enable = true;
+  documentation.man.generateCaches = false;
 
   programs.neovim = {
     enable = true;
