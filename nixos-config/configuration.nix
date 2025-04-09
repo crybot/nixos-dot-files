@@ -156,6 +156,7 @@ in
     wev # outputs wayland events (keypresses, etc.)
     srain # irc client (uses gnome-keyring for storing credentials)
     seahorse # for managing gnome-keyring secrets
+    kdiskmark # ssd benchmarks
   ];
 
   programs.hyprland.enable = true;
@@ -194,6 +195,7 @@ in
 
   security.rtkit.enable = true;
   fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     noto-fonts
     font-awesome

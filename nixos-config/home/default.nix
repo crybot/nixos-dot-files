@@ -71,7 +71,8 @@
     settings = {
       font = {
         normal = {
-          family = "FiraCode Nerd Font";
+          # family = "FiraCode Nerd Font";
+          family = "Jetbrains Mono Nerd Font";
           style = "Regular";
         };
         size = 13.0;

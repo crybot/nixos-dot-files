@@ -22,8 +22,9 @@
       sidebar-mode = true;
     };
     location = "center";
-    catppuccin.enable = true;
-    catppuccin.flavor = "mocha";
+    catppuccin.enable = false;
+    # catppuccin.flavor = "mocha";
+    theme = ./rounded.rasi;
   };
 
 }
