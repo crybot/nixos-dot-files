@@ -116,6 +116,14 @@
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         };
 
+        "hyprland/workspaces" = {
+          format = "{icon}";
+          on-click = "activate";
+          format-icons = {
+            active = " ";
+          };
+          sort-by-number = true;
+        };
 
         "custom/power" = {
           format  = "⏻ ";
