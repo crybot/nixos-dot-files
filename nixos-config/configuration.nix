@@ -12,8 +12,8 @@ let
   # Override obsidian with a wrapped version that fixes fractional scaling in wayland
   obsidianWithFlag = pkgs.writeShellScriptBin "obsidian" ''
     #!/bin/sh
-    # exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
-    exec ${pkgs.obsidian}/bin/obsidian --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    # exec ${pkgs.obsidian}/bin/obsidian --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
   '';
   telegramGnome = pkgs.writeShellScriptBin "telegram-desktop" ''
       #!/bin/sh 
@@ -145,6 +145,7 @@ in
     zotero
     nautilus
     obsidianWithFlag # unfree
+    # obsidian
     dropbox # unfree
     image-roll
     mpv
