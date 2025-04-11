@@ -10,20 +10,20 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 31;
         spacing = 10;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
         modules-right = [ 
           "pulseaudio"
           "network"
-          "cpu"
+          # "cpu"
           "backlight"
           "battery"
-          "power-profiles-daemon"
           "clock"
           "tray"
-          "bluetooth"
+          # "bluetooth"
+          "power-profiles-daemon"
           "custom/power"
         ];
 
@@ -32,7 +32,7 @@
         };
 
         "tray" = {
-          icon-size = 21;
+          icon-size = 15;
           spacing = 10;
         };
 
@@ -67,7 +67,7 @@
         };
 
         "power-profiles-daemon" = {
-          format = "{icon}";
+          format = " {icon}";
           tooltip-format = "Power profile: {profile}\nDriver: {driver}";
           tooltip = true;
           format-icons = {
@@ -121,6 +121,7 @@
           on-click = "activate";
           format-icons = {
             active = " ";
+            # urgent = " ";
           };
           sort-by-number = true;
         };
