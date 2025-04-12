@@ -2,9 +2,6 @@
 {
   programs.waybar = {
     enable = true;
-    catppuccin.enable = true;
-    catppuccin.flavor = "mocha";
-    catppuccin.mode = "prependImport";
     style = builtins.readFile ./style.css; # prependImport only works if this is a string
     settings = {
       mainBar = {

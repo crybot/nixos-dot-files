@@ -12,8 +12,8 @@ let
   # Override obsidian with a wrapped version that fixes fractional scaling in wayland
   obsidianWithFlag = pkgs.writeShellScriptBin "obsidian" ''
     #!/bin/sh
-    exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
-    # exec ${pkgs.obsidian}/bin/obsidian --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    # exec ${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
+    exec ${pkgs.obsidian}/bin/obsidian --no-sandbox --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U --ozone-platform=wayland "$@"
   '';
   telegramGnome = pkgs.writeShellScriptBin "telegram-desktop" ''
       #!/bin/sh 
@@ -26,8 +26,17 @@ in
   #                                                                                       #
   #########################################################################################
   imports = [];
-  catppuccin.flavor = "mocha";
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    sddm = {
+      enable = true;
+      flavor = "mocha";
+      fontSize = "14";
+      font = "Noto Sans";
+    };
+  };
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   # Allow unfree packages
@@ -145,7 +154,6 @@ in
     zotero
     nautilus
     obsidianWithFlag # unfree
-    # obsidian
     dropbox # unfree
     image-roll
     mpv
@@ -237,10 +245,6 @@ in
   services.displayManager = {
     sddm.enable = true;
     sddm.package = pkgs.kdePackages.sddm;
-    sddm.catppuccin.enable = true;
-    sddm.catppuccin.flavor = "mocha";
-    sddm.catppuccin.fontSize = "14";
-    sddm.catppuccin.font = "Noto Sans";
   };
 
   services.power-profiles-daemon.enable = true;

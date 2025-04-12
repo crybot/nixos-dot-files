@@ -3,8 +3,6 @@
 {
   programs.fish = {
     enable = true;
-    catppuccin.enable = true;
-    catppuccin.flavor = "mocha";
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
     '';

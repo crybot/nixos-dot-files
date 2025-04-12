@@ -30,15 +30,10 @@
   # changes in each release.
   home.stateVersion = "24.05";
 
+  gtk.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  catppuccin.flavor = "mocha";
-  catppuccin.enable = true;
-  catppuccin.pointerCursor.enable = true;
-  gtk.enable = true;
-  gtk.catppuccin.flavor = "macchiato";
-  gtk.catppuccin.enable = true;
 
   programs = {
     bash.enable = true;
@@ -63,11 +58,43 @@
     };
   };
 
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    cursors.enable = true;
+    alacritty = {
+      enable = true;
+      flavor = "mocha"; #TODO: also test "macchiato"
+    };
+    bat = {
+      enable = true;
+      flavor = "mocha";
+    };
+    hyprland = {
+      enable = true;
+      flavor = "mocha";
+      accent = "mauve";
+    };
+    fish = {
+      enable = true;
+      flavor = "mocha";
+    };
+    waybar = {
+      enable = true;
+      flavor = "mocha";
+      mode = "prependImport";
+    };
+    gtk = {
+      flavor = "macchiato";
+      enable = true;
+    };
+
+    zathura.enable = false;
+    rofi.enable = false;
+  };
+
   programs.alacritty = {
     enable = true;
-    catppuccin.enable = true;
-    catppuccin.flavor = "mocha"; #TODO: also test "macchiato"
-
     settings = {
       font = {
         normal = {
@@ -94,8 +121,6 @@
 
   programs.bat = {
     enable = true;
-    catppuccin.enable = true;
-    catppuccin.flavor = "mocha";
   };
 
   programs.eza = {
@@ -107,7 +132,6 @@
 
   programs.zathura = {
     enable = true;
-    catppuccin.enable = false;
   };
 
   services.swaync = {

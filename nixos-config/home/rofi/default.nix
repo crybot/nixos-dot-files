@@ -10,7 +10,6 @@
       show-icons = true;
       terminal = "alacritty";
       drun-display-format = "{icon} {name}";
-      # location = 0;
       disable-history = false;
       hide-scrollbar = true;
       display-drun = "   Apps ";
@@ -22,8 +21,6 @@
       sidebar-mode = true;
     };
     location = "center";
-    catppuccin.enable = false;
-    # catppuccin.flavor = "mocha";
     theme = ./rounded.rasi;
   };
 
