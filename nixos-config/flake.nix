@@ -58,7 +58,7 @@
               imports = [
                 ./home/default.nix 
                 ./hosts/laptop/home.nix
-                catppuccin.homeManagerModules.catppuccin
+                catppuccin.homeModules.catppuccin
               ];
             };
           }
