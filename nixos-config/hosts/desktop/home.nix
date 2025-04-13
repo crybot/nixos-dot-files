@@ -63,4 +63,24 @@
       '';
   };
 
+  # TODO: set persistent workspaces
+  # programs.waybar = {
+  #   settings = {
+  #     mainBar = {
+  #       "hyprland/workspaces" = {
+  #         format = "{icon}";
+  #         on-click = "activate";
+  #         format-icons = {
+  #           active = " ";
+  #         };
+  #         persistent-workspaces = {
+  #           "DP-4" = [1 2 3];
+  #           "DP-5" = [4 5 6];
+  #         };
+  #         sort-by-number = true;
+  #       };
+  #     };
+  #   };
+  # };
+
 }
