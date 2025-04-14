@@ -17,7 +17,7 @@ To complete the installation you need to log into:
 
 To use obsidian simply select the Vault under the directory `"~/Dropbox/Obsidian/Main Vault"`
 
-Finally, install Zotmoov (which replaces zotfile) plugin for Zotero, which lets you automatically move retrieved documents into the Dropbox folder.
+Zotmoov is installed automatically through home-manager. User preferencces are set in `user.js.template`.
 There's no real need to manually configure file renaming (which was previously done by zotfile), because starting from Zotero 7 this is handled by default.
 
 ## Neovim
@@ -28,3 +28,7 @@ will not come preinstalled. To correctly set them up do the following:
 2. Launch neovim again and run `:PlugInstall` to install the plugins.
 3. Launch neovim a third time to install the language servers. You can run `:Mason` to see the progress.
 
+## TODO:
+- Manage neovim through a home-managed lua file
+- Install language servers and build tools with nix
+- Install neovim plugins through nix (?)
