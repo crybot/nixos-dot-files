@@ -8,6 +8,7 @@
     ./waybar/default.nix
     ./fish/default.nix
     ./rofi/default.nix
+    ./zotero/default.nix
   ];
 
   # Home Manager needs a bit of information about you and the

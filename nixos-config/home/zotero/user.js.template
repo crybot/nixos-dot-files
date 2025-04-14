@@ -1,0 +1,15 @@
+
+// Prevent Zotero from automatically disabling newly added extensions in the profile
+// Setting to 0 disables the auto-disable feature for all scopes.
+user_pref("extensions.autoDisableScopes", 0);
+
+// Ensure the user scope is generally enabled (usually default)
+// 1 = PROFILE_SCOPE (user profile directory)
+// You might see other values like 15 if multiple scopes are enabled by default.
+// Ensure at least the '1' bit is set if this pref exists. If it doesn't exist, adding it as 1 is safe.
+user_pref("extensions.enabledScopes", 1); // Or keep existing value if it includes 1 (e.g., 5, 15)
+
+// Zotmoov preferences
+// @homeDir@ is a nix substitution variable
+user_pref("extensions.zotmoov.dst_dir", "@homeDir@/Dropbox/Applicazioni/onyx-knote/Zotero");
+user_pref("extensions.zotmoov.enable_subdir_move", true);

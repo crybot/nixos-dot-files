@@ -151,7 +151,7 @@ in
     pavucontrol
     neofetch
     chezmoi
-    zotero
+    # zotero
     nautilus
     obsidianWithFlag # unfree
     dropbox # unfree
