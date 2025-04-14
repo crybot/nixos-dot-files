@@ -56,11 +56,11 @@
       ];
     };
 
-    extraConfig = ''
-      exec-once = pkill swaybg
-      exec-once = swaybg --output "DP-5" -i ~/Pictures/backgrounds/sukuna-catppuccin1-hq2.png --mode stretch
-      exec-once = swaybg --output "DP-4" -i ~/Pictures/backgrounds/sukuna-catppuccin2-hq2.png --mode stretch
-      '';
+    # extraConfig = ''
+    #   exec-once = pkill swaybg
+    #   exec-once = swaybg --output "DP-5" -i ~/Pictures/backgrounds/sukuna-catppuccin1-hq2.png --mode stretch
+    #   exec-once = swaybg --output "DP-4" -i ~/Pictures/backgrounds/sukuna-catppuccin2-hq2.png --mode stretch
+    # '';
   };
 
   # TODO: set persistent workspaces
