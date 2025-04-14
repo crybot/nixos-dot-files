@@ -258,11 +258,7 @@ cmp.setup({
 })
 
 -- Customize the hover window with a border, similar to completion popup
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
-  max_width = 80,  -- Adjust the width of the hover window if needed
-  focusable = true,
-})
+vim.o.winborder = 'rounded'
 
 -- Global variable to track focus state (default true)
 local nvim_focused = true
@@ -299,7 +295,7 @@ end
 
 -- Check if the LSP supports hover for the current buffer
 function show_hover_if_supported()
-  local clients = vim.lsp.buf_get_clients(0)
+  local clients = vim.lsp.get_clients()
   for _, client in pairs(clients) do
     if is_nvim_focused() and client.supports_method("textDocument/hover") and not is_hover_open() then
       vim.lsp.buf.hover()
