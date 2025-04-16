@@ -21,14 +21,9 @@ Zotmoov is installed automatically through home-manager. User preferencces are s
 There's no real need to manually configure file renaming (which was previously done by zotfile), because starting from Zotero 7 this is handled by default.
 
 ## Neovim
-Neovim is still managed by chezmoi with a dot file, which means the plugin manager, the plugins and the language servers
-will not come preinstalled. To correctly set them up do the following:
-
-1. Launch neovim once, it will spit a bunch of errors and automatically download vim-plug.
-2. Launch neovim again and run `:PlugInstall` to install the plugins.
-3. Launch neovim a third time to install the language servers. You can run `:Mason` to see the progress.
+Neovim plugins and language servers are managed through nix and home-manager.
 
 ## TODO:
-- Manage neovim through a home-managed lua file
-- Install language servers and build tools with nix
-- Install neovim plugins through nix (?)
+- ~Manage neovim through a home-managed lua file~
+- ~Install language servers and build tools with nix~
+- ~Install neovim plugins through nix (?)~
