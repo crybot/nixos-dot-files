@@ -135,6 +135,10 @@
     enable = true;
   };
 
+   
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   services.swaync = {
     enable = true;
   };
@@ -159,6 +163,8 @@
       };
     };
   };
+
+  home.shell.enableFishIntegration = true;
 
   # Aliases
   home.shellAliases = {

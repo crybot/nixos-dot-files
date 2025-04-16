@@ -166,13 +166,16 @@ in
     srain # irc client (uses gnome-keyring for storing credentials)
     seahorse # for managing gnome-keyring secrets
     kdiskmark # ssd benchmarks
-    weechat
+    weechat # irc TUI client
+    shellify # for quick nix-shell generation
   ];
 
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+  };
   documentation.man.generateCaches = false;
 
   programs.neovim = {
