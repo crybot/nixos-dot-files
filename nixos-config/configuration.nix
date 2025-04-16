@@ -166,6 +166,7 @@ in
     srain # irc client (uses gnome-keyring for storing credentials)
     seahorse # for managing gnome-keyring secrets
     kdiskmark # ssd benchmarks
+    weechat
   ];
 
   programs.hyprland.enable = true;
