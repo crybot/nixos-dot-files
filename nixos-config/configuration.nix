@@ -168,6 +168,7 @@ in
     kdiskmark # ssd benchmarks
     weechat # irc TUI client
     shellify # for quick nix-shell generation
+    bc # TODO: home-manager?
   ];
 
   programs.hyprland.enable = true;
