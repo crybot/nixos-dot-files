@@ -23,6 +23,8 @@ vim.opt.clipboard = "unnamedplus"              -- use system clipboard
 vim.opt.termguicolors = true                   -- enable true colors
 -- vim.opt.t_Co = 16                              -- terminal colors (if needed)
 vim.opt.omnifunc = 'syntaxcomplete#Complete'    -- omnifunc for completion
+-- globally set the indent expression to Tree-sitter’s indent function
+vim.opt.indentexpr = "nvim_treesitter#indent()"
 
 -- Enable filetype plugins and syntax highlighting
 vim.cmd("filetype plugin indent on")
