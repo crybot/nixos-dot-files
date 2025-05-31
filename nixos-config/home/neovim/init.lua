@@ -80,6 +80,8 @@ map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 
 -- LSP diagnostics
 map('n', '<leader>d', ':lua vim.diagnostic.open_float()<CR>', opts)
+
+map('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true })
 -- Typst preview
 map('n', '<leader>tc', ':TypstPreview<CR>', opts)
 -- Forward search for TexLab (LaTeX)
@@ -144,12 +146,30 @@ require('lualine').setup {
 }
 
 ------------------
+-- snacks (QoL improvements)
+require('snacks').setup{
+  bigfile = { enabled = true },
+  -- dashboard = { enabled = true },
+  -- explorer = { enabled = true },
+  indent = { enabled = true },
+  input = { enabled = true },
+  picker = { enabled = true },
+  notifier = { enabled = true },
+  -- quickfile = { enabled = true },
+  -- scope = { enabled = true },
+  -- scroll = { enabled = true },
+  -- statuscolumn = { enabled = true },
+  -- words = { enabled = true },
+}
+
+------------------
 -- smear-cursor (Enhanced cursor highlighting)
 ------------------
 require('smear_cursor').setup{
   stiffness = 0.8,
   trailing_stiffness = 0.5,
   distance_stop_animating = 0.5,
+  smear_to_cmd = false, -- otherwise it breaks inputlist() choices (See https://github.com/neovim/neovim/issues/32068)
 }
 
 ------------------
@@ -204,8 +224,8 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   }, {
-    { name = 'buffer' },
-  })
+      { name = 'buffer' },
+    })
 })
 vim.opt.winborder = 'rounded'
 
@@ -288,8 +308,8 @@ lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.clangd.setup({
   capabilities = capabilities,
   -- Uncomment and adjust if needed:
-  -- cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
-  -- init_options = { fallbackFlags = { "-std=c++17" } },
+  cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
+  init_options = { fallbackFlags = { "-std=c++23" } },
 })
 
 -- TexLab (LaTeX)
@@ -335,9 +355,9 @@ require('typst-preview').setup {
 ------------------
 -- Indent-Blankline Replacement (ibl)
 ------------------
-require('ibl').setup {
-  scope = { enabled = true }
-}
+-- require('ibl').setup {
+--   scope = { enabled = true }
+-- }
 
 ------------------
 -- Treesitter

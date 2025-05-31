@@ -35,13 +35,16 @@
         vim-repeat
         vim-dispatch
         vim-closetag
+
+        # QoL and aesthetics
+        snacks-nvim
+        alpha-nvim
+        smear-cursor-nvim
         catppuccin-nvim
         nvim-web-devicons
         nvim-tree-lua
         lualine-nvim
-        smear-cursor-nvim
         bufferline-nvim
-        alpha-nvim
 
         # " Autocompletion plugins
         nvim-cmp
@@ -49,6 +52,7 @@
         cmp-buffer
         cmp-path
         cmp-cmdline
+        luasnip
 
         # " LSP and language servers
         nvim-lspconfig
@@ -58,7 +62,7 @@
 
         # " Code parsing (treesitter)
         nvim-treesitter.withAllGrammars
-        indent-blankline-nvim
+        # indent-blankline-nvim
         refactoring-nvim
         vim-matchup
         plenary-nvim

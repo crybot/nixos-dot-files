@@ -12,8 +12,7 @@ set -q fish_prompt_pwd_dir_length
 or set -lx fish_prompt_pwd_dir_length 0
 
 # Color the prompt differently when we're root
-# set -l suffix '❯'
-set -l suffix '❯'
+ set -l suffix '❯'
 if functions -q fish_is_root_user; and fish_is_root_user
   if set -q fish_color_cwd_root
     set cwd_color (set_color $fish_color_cwd_root)
@@ -38,6 +37,7 @@ end
 
 # Show virtualenv/mode prompt (relies on fish_mode_prompt checking VIRTUAL_ENV)
 printf '%s' (fish_mode_prompt)
+
 
 echo -s (prompt_login) ' ' $cwd_color (prompt_pwd) $normal $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status
 echo -n -s $status_color $suffix ' ' $normal

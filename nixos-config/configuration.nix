@@ -177,6 +177,7 @@ in
   programs.fish = {
     enable = true;
   };
+
   documentation.man.generateCaches = false;
 
   programs.neovim = {

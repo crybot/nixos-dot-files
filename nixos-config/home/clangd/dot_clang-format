@@ -1,0 +1,28 @@
+# Use Google style as a starting point
+BasedOnStyle: Google
+
+# Indentation
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+
+# Brace placement - opening brace stays on same line
+BreakBeforeBraces: Attach
+
+# Pointer/reference alignment style
+PointerAlignment: Left
+
+# Keep line length reasonable
+ColumnLimit: 100
+
+# Keep continuation indent sane (like function parameters breaking on next line)
+# ContinuationIndentWidth: 4
+
+# Control if braces are forced on if/else/for/while etc.
+AllowShortIfStatementsOnASingleLine: false
+
+# Allow short functions on one line if empty
+AllowShortFunctionsOnASingleLine: Inline
+
+# Align escaped newlines (for long strings)
+AlignEscapedNewlinesLeft: true

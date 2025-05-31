@@ -135,8 +135,10 @@
     enable = true;
   };
 
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   services.swaync = {
     enable = true;
@@ -164,6 +166,7 @@
   };
 
   home.shell.enableFishIntegration = true;
+  home.shell.enableBashIntegration = true;
 
   # Aliases
   home.shellAliases = {
@@ -198,5 +201,11 @@
     executable = true;
   };
 
+  home.file.".clang-format" = {
+    source = ./clangd/.clang-format;
+  };
+  home.file.".clang-tidy" = {
+    source = ./clangd/.clang-tidy;
+  };
 
 }
