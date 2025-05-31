@@ -80,7 +80,7 @@ in
   users.users.crybot = {
     isNormalUser = true;
     description = "Marco";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "fancontrol" ];
     packages = with pkgs; [];
     shell = pkgs.fish;
   };
@@ -169,6 +169,7 @@ in
     weechat # irc TUI client
     shellify # for quick nix-shell generation
     bc # TODO: home-manager?
+    lm_sensors
   ];
 
   programs.hyprland.enable = true;
@@ -190,6 +191,8 @@ in
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
   ];
+
+  programs.coolercontrol.enable = true;
 
   security.sudo = {
     enable = true;

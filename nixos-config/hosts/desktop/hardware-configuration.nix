@@ -10,8 +10,12 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "i2c_dev" "i2c_piix4" "i2c_amd_mp2" "nct6775" ];
   boot.extraModulePackages = [ ];
+  # fixes sensors detection for Asrock's B850 motherboards
+  boot.extraModprobeConfig = ''
+    options nct6775 force_id=0xd801
+  ''; 
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5b510ed4-a4a1-4e8d-9440-53e1335cc50c";
