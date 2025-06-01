@@ -19,7 +19,7 @@ ColumnLimit: 100
 AllowShortIfStatementsOnASingleLine: false # This is fine
 
 # Allow short functions on one line if empty
-AllowShortFunctionsOnASingleLine: Inline # This is fine
+# AllowShortFunctionsOnASingleLine: Inline # This is fine
 
 # Align escaped newlines (for long strings)
 AlignEscapedNewlinesLeft: true # Your existing override
@@ -39,10 +39,18 @@ BinPackArguments: false
 # How to align parameters/arguments when they are on new lines.
 # Google Style default is Align. Indent usually gives the desired effect
 # for having the closing parenthesis on its own line.
-AlignAfterOpenBracket: Indent
+AlignAfterOpenBracket: BlockIndent
 
 # Optional: Adjust ContinuationIndentWidth if needed
 # Google style defaults ContinuationIndentWidth to 4. If AlignAfterOpenBracket: Indent
 # results in parameters being indented by 4 spaces, and you want them indented by 2
 # (matching your IndentWidth), uncomment and set this:
 # ContinuationIndentWidth: 2
+
+# --- Change this for function formatting ---
+# Allow short functions on one line if empty
+AllowShortFunctionsOnASingleLine: None # Was 'Inline', change to 'None'
+
+# --- Add this for lambda formatting ---
+# Prevent short lambdas from being on a single line
+AllowShortLambdasOnASingleLine: None
