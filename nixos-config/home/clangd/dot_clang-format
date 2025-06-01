@@ -15,14 +15,34 @@ PointerAlignment: Left
 # Keep line length reasonable
 ColumnLimit: 100
 
-# Keep continuation indent sane (like function parameters breaking on next line)
-# ContinuationIndentWidth: 4
-
 # Control if braces are forced on if/else/for/while etc.
-AllowShortIfStatementsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false # This is fine
 
 # Allow short functions on one line if empty
-AllowShortFunctionsOnASingleLine: Inline
+AllowShortFunctionsOnASingleLine: Inline # This is fine
 
 # Align escaped newlines (for long strings)
-AlignEscapedNewlinesLeft: true
+AlignEscapedNewlinesLeft: true # Your existing override
+
+# --- Changes for function parameter formatting ---
+
+# For function/method declarations and definitions:
+# Default in Google Style is true. Set to false to put each parameter on a new
+# line if the declaration/definition exceeds the column limit.
+BinPackParameters: false
+
+# For function/method calls:
+# Default in Google Style is true. Set to false to put each argument on a new
+# line if the call exceeds the column limit.
+BinPackArguments: false
+
+# How to align parameters/arguments when they are on new lines.
+# Google Style default is Align. Indent usually gives the desired effect
+# for having the closing parenthesis on its own line.
+AlignAfterOpenBracket: Indent
+
+# Optional: Adjust ContinuationIndentWidth if needed
+# Google style defaults ContinuationIndentWidth to 4. If AlignAfterOpenBracket: Indent
+# results in parameters being indented by 4 spaces, and you want them indented by 2
+# (matching your IndentWidth), uncomment and set this:
+# ContinuationIndentWidth: 2

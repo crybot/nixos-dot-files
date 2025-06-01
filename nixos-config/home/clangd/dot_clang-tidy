@@ -1,4 +1,4 @@
-Checks: 'modernize-*,readability-identifier-naming'
+Checks: 'modernize-*,readability-identifier-naming,cppcoreguidelines-*,bugprone-*'
 
 WarningsAsErrors: ''
 
@@ -34,18 +34,21 @@ CheckOptions:
   - key: readability-identifier-naming.ParameterCase
     value: lower_case
 
+  - key: readability-identifier-naming.ConstantParameterCase
+    value: lower_case
+
   - key: readability-identifier-naming.ClassMemberCase
     value: lower_case
 
   - key: readability-identifier-naming.PrivateMemberSuffix
     value: _
 
-  # Optional: also enforce template and enum naming
-  - key: readability-identifier-naming.EnumCase
-    value: CamelCase
+    # Optional: also enforce template and enum naming
+- key: readability-identifier-naming.EnumCase
+value: CamelCase
 
-  - key: readability-identifier-naming.EnumConstantCase
-    value: UPPER_CASE
+- key: readability-identifier-naming.EnumConstantCase
+value: UPPER_CASE
 
-  - key: readability-identifier-naming.TemplateParameterCase
-    value: CamelCase
+- key: readability-identifier-naming.TemplateParameterCase
+value: CamelCase
