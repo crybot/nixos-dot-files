@@ -43,7 +43,7 @@ if set -q SSH_CONNECTION
   # SSH_CONNECTION format: client_ip client_port server_ip server_port
   set -l ssh_parts (string split ' ' $SSH_CONNECTION)
   set -l server_ip $ssh_parts[3] # The server IP is the 3rd element
-  set ssh_indicator (set_color yellow) "[ssh to $server_ip] " (set_color normal)
+  set ssh_indicator (set_color bryellow)"on 🌐$server_ip "(set_color normal)
 end
 
 # Show virtualenv/mode prompt (relies on fish_mode_prompt checking VIRTUAL_ENV)
@@ -52,5 +52,6 @@ if functions -q fish_mode_prompt # Check if the function exists
   set mode_prompt (fish_mode_prompt)
 end
 
-echo -s $ssh_indicator $mode_prompt $venv_prompt (prompt_login) ' ' $cwd_color (prompt_pwd) $normal $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status
+echo -s $mode_prompt $venv_prompt (prompt_login) ' ' $ssh_indicator $cwd_color (prompt_pwd) $normal $vcs_color (fish_vcs_prompt) \
+        $normal ' ' $prompt_status
 echo -n -s $status_color $suffix ' ' $normal
