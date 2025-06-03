@@ -136,6 +136,25 @@
         "blurpopups, rofi"
       ];
     };
+    # Long pressing XF86Tools (F10) doesn't work on this laptop: it gets immediately released for some reason
+    # (unlike other XF86 keys). Luckily it also generates a right keypress and release for key with code 248, which
+    # we will use instead.
+    extraConfig = ''
+        # Long press disables vpn
+        bindo = $mainMod, code:248, exec, sudo $HOME/scripts/stop-wireguard.sh
+        # Short press enables vpn
+        bind = $mainMod, code:248, exec, sudo $HOME/scripts/start-wireguard.sh
+      '';
+  };
+
+  home.file."scripts/start-wireguard.sh" = {
+    source = pkgs.replaceVars ./wireguard/start-wireguard.sh.template { wgInterface = "wg0"; };
+    executable = true;
+  };
+
+  home.file."scripts/stop-wireguard.sh" = {
+    source = pkgs.replaceVars ./wireguard/stop-wireguard.sh.template { wgInterface = "wg0"; };
+    executable = true;
   };
 
 }

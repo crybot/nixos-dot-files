@@ -28,9 +28,7 @@ in
 
     # user.js overwrites prefs.js but it's not written back by zotero.
     ".zotero/zotero/Profiles/default/user.js" = {
-      source = pkgs.substituteAll {
-        src = ./user.js.template; # Path to the template
-
+      source = pkgs.replaceVars ./user.js.template {
         # Define the substitutions. Key is the placeholder name (without @ symbols).
         # Value is the replacement string.
         homeDir = config.home.homeDirectory;

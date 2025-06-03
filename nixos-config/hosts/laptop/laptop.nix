@@ -70,4 +70,20 @@
     wantedBy = lib.mkForce [];
   };
 
+  security.sudo.extraRules = [
+    {
+      users = [ "crybot" ]; # Your username
+      commands = [
+        {
+          command = "/home/crybot/scripts/start-wireguard.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/crybot/scripts/stop-wireguard.sh";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
 }
