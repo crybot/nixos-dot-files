@@ -31,6 +31,7 @@
         # "${lib.makeSearchPathOutput "dev" "lib/pkgconfig" [ pkgs.stdenv.cc.cc pkgs.zlib ]}"
       ];
       plugins = with pkgs.vimPlugins; [
+        nvim-osc52
         vim-surround
         vim-repeat
         vim-dispatch
