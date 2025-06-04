@@ -54,3 +54,5 @@ AllowShortFunctionsOnASingleLine: None # Was 'Inline', change to 'None'
 # --- Add this for lambda formatting ---
 # Prevent short lambdas from being on a single line
 AllowShortLambdasOnASingleLine: None
+
+PenaltyBreakAssignment: 2000
