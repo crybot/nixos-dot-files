@@ -1,3 +1,5 @@
+-- TODO: REMAP :tabm ±i to move active tab
+
 ------------------------------------------------------------
 -- Neovim init.lua (Converted from VimL)
 ------------------------------------------------------------
@@ -187,6 +189,7 @@ require("bufferline").setup{
       icon = 'O',
       style = 'icon'
     },
+    diagnostics = "nvim_lsp",
   }
 }
 

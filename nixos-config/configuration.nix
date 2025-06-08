@@ -170,6 +170,7 @@ in
     shellify # for quick nix-shell generation
     bc # TODO: home-manager?
     lm_sensors
+    hyperfine # commandline benchmarking tool
   ];
 
   programs.hyprland.enable = true;

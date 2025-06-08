@@ -51,3 +51,15 @@ CheckOptions:
 
   - key: readability-identifier-naming.TemplateParameterCase
     value: CamelCase
+
+  - key: readability-identifier-naming.LocalConstantCase
+    value: lower_case
+
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: lower_case
+
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: lower_case
+
+  - key: readability-identifier-naming.ConstantMemberCase
+    value: lower_case
