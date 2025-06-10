@@ -3,7 +3,7 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = false;
+    xwayland.enable = true;
     extraConfig = builtins.readFile ./hyprland.conf;
     # plugins = [ pkgs.hyprlandPlugins.hyprspace ];
   };

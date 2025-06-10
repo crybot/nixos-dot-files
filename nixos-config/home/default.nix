@@ -208,4 +208,5 @@
     source = ./clangd/.clang-tidy;
   };
 
+  dconf.enable = true;
 }

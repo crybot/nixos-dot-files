@@ -19,6 +19,12 @@ let
       #!/bin/sh 
       XDG_CURRENT_DESKTOP=gnome exec ${pkgs.telegram-desktop}/bin/telegram-desktop "$@"
   '';
+
+  patched-en-croissant = pkgs.writeShellScriptBin "en-croissant" ''
+      #!/usr/bin/env sh
+      xdg-user-dirs-update --force
+      WEBKIT_DISABLE_COMPOSITING_MODE=1 exec ${pkgs.en-croissant}/bin/en-croissant "$@"
+  '';
 in
 {
 
@@ -171,6 +177,9 @@ in
     bc # TODO: home-manager?
     lm_sensors
     hyperfine # commandline benchmarking tool
+    xdg-user-dirs
+    patched-en-croissant
+    cutechess
   ];
 
   programs.hyprland.enable = true;

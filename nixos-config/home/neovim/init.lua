@@ -82,12 +82,16 @@ map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 
 -- LSP diagnostics
 map('n', '<leader>d', ':lua vim.diagnostic.open_float()<CR>', opts)
-
 map('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true })
+map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true })
+
 -- Typst preview
 map('n', '<leader>tc', ':TypstPreview<CR>', opts)
 -- Forward search for TexLab (LaTeX)
 map('n', '<leader>fs', ':TexlabForward<CR>', opts)
+
+-- Other
+-- map('n', '<leader>R <cmd>source $MYVIMRC<CR>', opts)
 
 ------------------------------------------------------------
 -- Plugin Setup & Configurations
