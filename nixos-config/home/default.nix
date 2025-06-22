@@ -140,6 +140,10 @@
     nix-direnv.enable = true;
   };
 
+  programs.zellij = {
+    enable = true;
+  };
+
   services.swaync = {
     enable = true;
   };

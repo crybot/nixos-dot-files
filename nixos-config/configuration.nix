@@ -177,9 +177,10 @@ in
     bc # TODO: home-manager?
     lm_sensors
     hyperfine # commandline benchmarking tool
-    xdg-user-dirs
+    xdg-user-dirs # used in wrappers for webkit applications to fix missing default directories (en-croissant)
     patched-en-croissant
     cutechess
+    tmux
   ];
 
   programs.hyprland.enable = true;
@@ -188,8 +189,6 @@ in
   programs.fish = {
     enable = true;
   };
-
-  documentation.man.generateCaches = false;
 
   programs.neovim = {
     enable = true;
@@ -203,6 +202,12 @@ in
   ];
 
   programs.coolercontrol.enable = true;
+
+  programs.localsend = {
+    enable = true;
+  };
+
+  documentation.man.generateCaches = false;
 
   security.sudo = {
     enable = true;
