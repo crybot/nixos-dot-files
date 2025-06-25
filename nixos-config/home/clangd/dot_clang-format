@@ -6,8 +6,13 @@ IndentWidth: 2
 TabWidth: 2
 UseTab: Never
 
-# Brace placement - opening brace stays on same line
-BreakBeforeBraces: Attach
+# In .clang-format
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: false    # Keeps function braces attached: void func() {
+  AfterClass: false       # Keeps class braces attached: class MyClass {
+  AfterControlStatement: false # Keeps if/for/while braces attached: if (c) {
+  BeforeElse: true
 
 # Pointer/reference alignment style
 PointerAlignment: Left
