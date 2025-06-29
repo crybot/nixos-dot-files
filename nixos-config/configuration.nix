@@ -133,6 +133,7 @@ in
   ############################### PROGRAMS ################################################
   #                                                                                       #
   #########################################################################################
+
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
     parallel # gnu parallel (useful for scripting)

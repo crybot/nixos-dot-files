@@ -14,6 +14,9 @@ BraceWrapping:
   AfterControlStatement: false # Keeps if/for/while braces attached: if (c) {
   BeforeElse: true
 
+# Break before binary operators, including the range pipe |
+BreakBeforeBinaryOperators: All
+
 # Pointer/reference alignment style
 PointerAlignment: Left
 

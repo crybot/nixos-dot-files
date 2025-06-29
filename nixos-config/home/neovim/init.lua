@@ -346,7 +346,9 @@ lspconfig.texlab.setup{
 -- Typst Preview
 ------------------
 require('typst-preview').setup {
-  open_cmd = 'google-chrome-stable --app=%s --disable-extensions --disable-background-networking --disable-background-timer-throttling',
+  -- open_cmd = 'google-chrome-stable --app=%s --disable-extensions --disable-background-networking --disable-background-timer-throttling',
+  -- open_cmd = 'firefox %s -P typst-preview --class typst-preview',
+  open_cmd = 'firefox %s -P typst-preview --class typst-preview &',
 }
 
 ------------------
