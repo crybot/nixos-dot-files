@@ -27,7 +27,7 @@
   };
 
   # Disable to save battery (probably don't need docker here)
-  virtualisation.docker.enable = lib.mkForce false;
+  # virtualisation.docker.enable = lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     wireguard-tools

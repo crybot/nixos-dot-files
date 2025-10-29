@@ -156,7 +156,7 @@
     tray = true;
     temperature = {
       day = 5500;
-      night = 3500;
+      night = 2200;
     };
   };
 
