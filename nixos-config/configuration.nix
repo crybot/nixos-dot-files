@@ -136,6 +136,7 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    gimp
     parallel # gnu parallel (useful for scripting)
     ntfs3g # for mounting ntfs partitions
     unzip lbzip2 # unzip + parallel gzip2 implementation

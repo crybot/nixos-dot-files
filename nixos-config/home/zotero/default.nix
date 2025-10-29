@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }: # Ensure lib is available for pkgs.lib.fakeSha256
 
+# TODO: better-bibtex
+
 let
   # Define the path to your Zotero config files relative to home.nix
   # zoteroConfigDir = .;
