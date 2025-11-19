@@ -54,6 +54,7 @@
         cmp-path
         cmp-cmdline
         luasnip
+        which-key-nvim # shows available keymaps as you type
 
         # " LSP and language servers
         nvim-lspconfig
@@ -68,6 +69,9 @@
         vim-matchup
         plenary-nvim
         rainbow-delimiters-nvim
+
+        # IDE-like
+        telescope-nvim
 
         # " Others
         # dockerfile # TODO: use nvim-treesitter-parsers.dockerfile (it was commented out originally probably because of

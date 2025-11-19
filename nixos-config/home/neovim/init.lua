@@ -88,7 +88,16 @@ map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true })
 -- Typst preview
 map('n', '<leader>tc', ':TypstPreview<CR>', opts)
 -- Forward search for TexLab (LaTeX)
-map('n', '<leader>fs', ':TexlabForward<CR>', opts)
+map('n', '<leader>ts', ':TexlabForward<CR>', opts)
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Telescope grep cursor' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope lsp references' })
+vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope lsp definitions' })
 
 -- Other
 -- map('n', '<leader>R <cmd>source $MYVIMRC<CR>', opts)

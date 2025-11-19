@@ -116,6 +116,8 @@ in
   #   enableSSHSupport = true;
   # };
 
+  programs.gpu-screen-recorder.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -136,6 +138,8 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    ripgrep
+    gpu-screen-recorder-gtk
     gimp
     parallel # gnu parallel (useful for scripting)
     ntfs3g # for mounting ntfs partitions
@@ -315,7 +319,12 @@ in
 
   nix.settings = {
     trusted-users = [ "root" "crybot" ]; # Add your username here if not already present
+    trusted-substituters = ["https://ai.cachix.org"];
+    trusted-public-keys = ["ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="];
   };
+
+  
+
 
 
 }
