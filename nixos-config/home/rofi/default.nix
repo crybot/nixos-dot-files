@@ -3,7 +3,8 @@
 {
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    # package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     extraConfig = {
       modi = "run,drun,window,keys,filebrowser";
       icon-theme = "Oranchelo";
