@@ -132,12 +132,14 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  ############################### PROGRAMS ################################################
+  ############################### PROGRAMS ###############################################
   #                                                                                       #
   #########################################################################################
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    gtk-engine-murrine
+    gnome-themes-extra
     ripgrep
     gpu-screen-recorder-gtk
     gimp
@@ -184,7 +186,7 @@ in
     lm_sensors
     hyperfine # commandline benchmarking tool
     xdg-user-dirs # used in wrappers for webkit applications to fix missing default directories (en-croissant)
-    patched-en-croissant
+    # patched-en-croissant
     cutechess
     tmux
   ];
