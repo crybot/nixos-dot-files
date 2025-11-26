@@ -33,7 +33,8 @@ vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")
 
 -- Set colorscheme
-vim.cmd("colorscheme catppuccin")
+-- vim.cmd("colorscheme catppuccin")
+-- colorscheme catppuccin
 
 ------------------------------------------------------------
 -- Global Variables for Plugins
@@ -90,6 +91,8 @@ map('n', '<leader>tc', ':TypstPreview<CR>', opts)
 -- Forward search for TexLab (LaTeX)
 map('n', '<leader>ts', ':TexlabForward<CR>', opts)
 
+
+-- Telescope keymaps
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
@@ -99,12 +102,41 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope lsp references' })
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope lsp definitions' })
 
+
+-- Persistence keymaps (sessions)
+-- load the session for the current directory
+vim.keymap.set("n", "<leader>ss", function() require("persistence").load() end)
+-- select a session to load
+vim.keymap.set("n", "<leader>sS", function() require("persistence").select() end)
+-- load the last session
+vim.keymap.set("n", "<leader>sl", function() require("persistence").load({ last = true }) end)
+-- stop Persistence => session won't be saved on exit
+vim.keymap.set("n", "<leader>sd", function() require("persistence").stop() end)
+
 -- Other
 -- map('n', '<leader>R <cmd>source $MYVIMRC<CR>', opts)
 
 ------------------------------------------------------------
 -- Plugin Setup & Configurations
 ------------------------------------------------------------
+
+------------------
+-- Catppuccin (Color Scheme Integration)
+------------------
+require("catppuccin").setup({
+  integrations = {
+    treesitter = true,
+    aerial = true,
+    navic = {
+      enabled = true,
+      custom_bg = "lualine",
+    },
+    -- Add other integrations as needed
+  },
+})
+
+vim.cmd.colorscheme "catppuccin"
+
 
 ------------------
 -- nvim-web-devicons
@@ -141,6 +173,19 @@ require("nvim-tree").setup({
 })
 
 ------------------
+-- navic (needed by lualine)
+------------------
+local navic = require('nvim-navic')
+navic.setup {
+  lsp = {
+    auto_attach = true,
+  },
+  highlight = true,
+}
+-- vim.api.nvim_set_hl(0, "NavicText", { fg = "#ff9e64", bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "NavicSeparator", { fg = "#ff9e64", bg = "NONE" })
+
+------------------
 -- lualine (Status Line)
 ------------------
 require('lualine').setup {
@@ -152,12 +197,22 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { function() return '' end, 'mode' },
-    lualine_b = {'branch'},
-    lualine_c = { {'filename', path = 1} },
-    lualine_x = {'diagnostics', 'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'},
-  }
+    lualine_b = { 'branch' },
+    lualine_c = {
+      { 'filename', path = 1 },
+      {
+        function()
+          return navic.get_location()
+        end,
+        cond = function()
+          return navic.is_available()
+        end,
+      },
+    },
+    lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' },
+  },
 }
 
 ------------------
@@ -185,7 +240,17 @@ require('smear_cursor').setup{
   trailing_stiffness = 0.5,
   distance_stop_animating = 0.5,
   smear_to_cmd = false, -- otherwise it breaks inputlist() choices (See https://github.com/neovim/neovim/issues/32068)
+  hide_target_hack = true,
+  never_draw_over_target = true,
+  cursor_color = "none",
+  distance_stop_animating = 0.4,
+  smear_between_neighbor_lines = true,   -- keep vertical smear if you like it
+  min_horizontal_distance_smear = 1,     -- don’t smear for 0→1 cell jitters
+  min_vertical_distance_smear   = 1,
+  -- smear_insert_mode = false,
 }
+
+vim.o.guicursor = ""
 
 ------------------
 -- bufferline (Tabline)
@@ -289,9 +354,54 @@ vim.opt.updatetime = 1000
 ------------------
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local util = require("lspconfig.util")
+
+-- Helper: wrap a "normal" cmd in docker exec if LSP_DOCKER_CONTAINER is set
+local function dockerized_cmd(local_cmd)
+  local container = vim.env.LSP_DOCKER_CONTAINER
+  if not container or container == "" then
+    -- No container: run LSP on host
+    return local_cmd
+  end
+
+  local cmd = { "docker", "exec", "-i", container }
+  vim.list_extend(cmd, local_cmd)
+  return cmd
+end
+
+lspconfig.pyright.setup {
+  -- pyright normally runs as:
+  --   { "pyright-langserver", "--stdio" }
+  -- we wrap it via dockerized_cmd so it becomes:
+  --   { "docker", "exec", "-i", <container>, "pyright-langserver", "--stdio" }
+  capabilities = capabilities,
+  cmd = dockerized_cmd({ "pyright-langserver", "--stdio" }),
+
+  root_dir = util.root_pattern(
+    "pyrightconfig.json",
+    "pyproject.toml",
+    "setup.cfg",
+    "setup.py",
+    "requirements.txt",
+    "Dockerfile",
+    "Dockerfile.gpu",
+    ".git"
+  ),
+
+  -- When running in a container, it's often safer to unset processId
+  before_init = function(params, _config)
+    params.processId = vim.NIL
+  end,
+
+  -- on_attach = function(client, bufnr)
+  --   navic.attach(client, bufnr)
+  -- end,
+}
 
 -- Pyright
-lspconfig.pyright.setup { capabilities = capabilities }
+-- lspconfig.pyright.setup {
+--   capabilities = capabilities 
+-- }
 
 -- Tinymist
 lspconfig.tinymist.setup {
@@ -399,16 +509,6 @@ require('nvim-treesitter.configs').setup {
 }
 
 ------------------
--- Catppuccin (Color Scheme Integration)
-------------------
-require("catppuccin").setup({
-  integrations = {
-    treesitter = true,
-    -- Add other integrations as needed
-  },
-})
-
-------------------
 -- virt-column (Visual Column Marker)
 ------------------
 require("virt-column").setup()
@@ -424,6 +524,8 @@ require("todo-comments").setup()
 require("toggleterm").setup({
   open_mapping = [[<c-t>]],
   start_in_insert = true,
+  insert_mappings = true,
+  terminal_mappings = true,
 })
 
 require('osc52').setup()
@@ -434,3 +536,104 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end
   end,
 })
+
+require('persistence').setup({
+  -- where to save sessions
+  dir = vim.fn.stdpath("state") .. "/sessions/",
+  -- what to save
+  options = { "buffers", "curdir", "tabpages", "winsize" },
+})
+
+require('illuminate').configure({})
+
+require('trouble').setup({
+  -- you can keep defaults, this is just a tiny tweak set
+  auto_open = false,    -- don't auto-open on diagnostics
+  auto_close = false,   -- don't auto-close when empty
+  auto_preview = true,  -- preview location in main window
+  focus = false,        -- keep focus in your code window
+  use_diagnostic_signs = true, -- use LSP diag signs if available
+})
+
+-- Keymaps (Trouble v3-style commands)
+-- See plugin README's lazy.nvim example for the same mappings :contentReference[oaicite:0]{index=0}
+local map = vim.keymap.set
+local opts = { silent = true, noremap = true }
+
+-- Workspace diagnostics
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: workspace diagnostics",
+}))
+
+-- Current buffer diagnostics
+map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: buffer diagnostics",
+}))
+
+-- Document symbols (like a quick outline)
+map("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: document symbols",
+}))
+
+-- LSP defs/refs/impls/etc for symbol under cursor
+map("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: LSP defs/refs",
+}))
+
+-- Location list
+map("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: location list",
+}))
+
+-- Quickfix list
+map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", vim.tbl_extend("force", opts, {
+  desc = "Trouble: quickfix list",
+}))
+
+
+require('fidget').setup({
+  -- LSP progress options
+  progress = {
+    suppress_on_insert = true,      -- don't spam while typing
+  },
+
+  -- Notification options (Fidget as a notification UI)
+  notification = {
+    override_vim_notify = true,     -- make vim.notify use Fidget
+    window = {
+      normal_hl = "Normal",         -- use regular text color
+      winblend = 0,                 -- 0 = opaque, easier to see
+      border = "rounded",           -- nice visible border
+      zindex = 45,
+    },
+  },
+})
+
+
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>m", "<cmd>AerialToggle!<CR>")
+
+
+-- Folds
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+-- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+-- 
+-- require('ufo').setup({
+--     provider_selector = function(bufnr, filetype, buftype)
+--         return {'treesitter', 'indent'}
+--     end
+-- })

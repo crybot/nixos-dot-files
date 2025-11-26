@@ -31,7 +31,20 @@
   # changes in each release.
   home.stateVersion = "24.05";
 
-  gtk.enable = true;
+gtk = {
+  enable = true;
+  colorScheme = "dark";
+  theme = {
+    # IMPORTANT: must match exactly the directory inside share/themes
+    name = "Catppuccin-GTK-Purple-Dark"; # ← example
+    package = pkgs.magnetic-catppuccin-gtk.override {
+      accent = [ "purple" ];
+      shade  = "dark";
+      size   = "standard";
+      tweaks = [ "black" "float" "macos" ];
+    };
+  };
+};
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -63,6 +76,8 @@
     enable = true;
     flavor = "mocha";
     cursors.enable = true;
+    accent = "mauve";
+
     alacritty = {
       enable = true;
       flavor = "mocha"; #TODO: also test "macchiato"
@@ -85,11 +100,10 @@
       flavor = "mocha";
       mode = "prependImport";
     };
-    gtk = {
-      flavor = "macchiato";
-      enable = true;
-    };
-
+    # gtk = {
+    #   flavor = "macchiato";
+    #   enable = true;
+    # };
     zathura.enable = false;
     rofi.enable = false;
   };
@@ -108,6 +122,15 @@
 
       colors = {
         draw_bold_text_with_bright_colors = true;
+      };
+      cursor = {
+        style = {
+          shape = "Block";
+          blinking = "Never";  # <- important
+        };
+        # optional, but can help consistency
+        blink_interval = 750;
+        blink_timeout = 0;
       };
 
       terminal = {
@@ -143,20 +166,40 @@
   programs.zellij = {
     enable = true;
   };
+  programs.zoxide = {
+    enable = true;
+  };
 
   services.swaync = {
     enable = true;
   };
 
-  services.gammastep = {
+  # services.gammastep = {
+  #   enable = true;
+  #   provider = "manual";
+  #   latitude = "41.902782";
+  #   longitude = "12.496365";
+  #   tray = true;
+  #   temperature = {
+  #     day = 5500;
+  #     night = 2200;
+  #   };
+  # };
+
+  services.hyprsunset = {
     enable = true;
-    provider = "manual";
-    latitude = "41.902782";
-    longitude = "12.496365";
-    tray = true;
-    temperature = {
-      day = 5500;
-      night = 2200;
+    settings = {
+      profile = [
+        {
+          time = "7:30";
+          identity = true;
+        }
+
+        {
+          time = "21:00";
+          temperature = 3000;
+          gamma = 0.7;
+        }];
     };
   };
 
