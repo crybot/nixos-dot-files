@@ -43,7 +43,7 @@
         "opacity 0.7 override 0.7 override 0.7 override, class:(nm-connection-editor)"
         "opacity 0.7 override 0.7 override 0.7 override, class:(nm-applet)"
         "opacity 0.7 override 0.7 override 0.7 override, class:(io.github.kaii_lb.Overskride)"
-        "opacity 0.90 override, class:(Alacritty)"
+        "opacity 1.0  override, class:(Alacritty)"
       ];
       layerrule = [ 
         "blur, waybar" # Add blur to waybar

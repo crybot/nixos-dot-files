@@ -126,7 +126,7 @@ gtk = {
       cursor = {
         style = {
           shape = "Block";
-          blinking = "Never";  # <- important
+          blinking = "Never";
         };
         # optional, but can help consistency
         blink_interval = 750;
@@ -139,6 +139,10 @@ gtk = {
 
       window = {
         dynamic_padding = true;
+        padding = {
+          x = 5;
+          y = 10;
+        };
       };
     };
   };
