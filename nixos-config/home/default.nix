@@ -203,7 +203,14 @@ gtk = {
           time = "21:00";
           temperature = 3000;
           gamma = 0.7;
-        }];
+        }
+
+        {
+          time = "22:00";
+          temperature = 2000;
+          gamma = 0.6;
+        }
+      ];
     };
   };
 
