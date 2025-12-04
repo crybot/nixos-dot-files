@@ -134,6 +134,9 @@ vim.keymap.set("n", "<leader>sd", function() require("persistence").stop() end)
 -- Catppuccin (Color Scheme Integration)
 ------------------
 require("catppuccin").setup({
+  flavour = "macchiato",
+  auto_integrations = true,
+
   integrations = {
     treesitter = true,
     aerial = true,
@@ -141,8 +144,34 @@ require("catppuccin").setup({
       enabled = true,
       custom_bg = "lualine",
     },
-    -- Add other integrations as needed
   },
+
+  styles = {
+    comments = { "italic" },
+    -- conditionals = { "italic" }, -- (if, else) Separates logic from data
+    -- loops = { "italic" },        -- (for, while) Matches conditionals style
+    functions = { "bold" },      -- (func_name) Makes function calls/definitions pop
+    -- keywords = { "italic" },     -- (return, class) Helps scan for structure
+    strings = {},                -- Keep plain to avoid visual clutter
+    variables = {},              -- Keep plain; they are the most common text
+    numbers = {},
+    booleans = { "bold" },       -- (true, false) Important constants often drive logic
+    properties = {},
+    types = { "bold" },          -- (String, Int) Distinguishes types from variables
+    operators = {},
+  },
+  lsp_styles = {
+    underlines = {
+      errors = { "undercurl" },    -- "Squiggly" lines are standard for errors
+      hints = { "underline" },
+      warnings = { "undercurl" },  -- Distinguish warnings from info/hints
+      information = { "underline" },
+    },
+    inlay_hints = {
+      background = true,
+    },
+  },
+
 })
 
 vim.cmd.colorscheme "catppuccin"
@@ -384,19 +413,20 @@ lspconfig.config("pyright", {
   --   { "pyright-langserver", "--stdio" }
   -- we wrap it via dockerized_cmd so it becomes:
   --   { "docker", "exec", "-i", <container>, "pyright-langserver", "--stdio" }
+
   capabilities = capabilities,
   cmd = dockerized_cmd({ "pyright-langserver", "--stdio" }),
 
-  root_dir = util.root_pattern(
-    "pyrightconfig.json",
-    "pyproject.toml",
-    "setup.cfg",
-    "setup.py",
-    "requirements.txt",
-    "Dockerfile",
-    "Dockerfile.gpu",
-    ".git"
-  ),
+  -- root_dir = util.root_pattern(
+  --   "pyrightconfig.json",
+  --   "pyproject.toml",
+  --   "setup.cfg",
+  --   "setup.py",
+  --   "requirements.txt",
+  --   "Dockerfile",
+  --   "Dockerfile.gpu",
+  --   ".git"
+  -- ),
 
   -- When running in a container, it's often safer to unset processId
   before_init = function(params, _config)
@@ -407,12 +437,13 @@ lspconfig.config("pyright", {
   --   navic.attach(client, bufnr)
   -- end,
 })
-lspconfig.enable("pyright")
 
 -- Pyright
--- lspconfig.pyright.setup {
+-- lspconfig.config("pyright", {
 --   capabilities = capabilities 
--- }
+-- })
+lspconfig.enable("pyright")
+
 
 -- Tinymist
 lspconfig.config("tinymist", {
