@@ -236,6 +236,9 @@ in
 
   security.rtkit.enable = true;
   fonts.packages = with pkgs; [
+    aporetic
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     noto-fonts

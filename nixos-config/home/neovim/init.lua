@@ -99,8 +99,18 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Telescope grep cursor' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope lsp references' })
+-- vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope lsp references' })
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope lsp definitions' })
+
+
+-- Normal-mode mapping: open references for symbol under cursor, in NORMAL mode
+vim.keymap.set('n', '<leader>fr', function()
+  require('telescope.builtin').lsp_references{
+    initial_mode = "normal", -- <-- open the picker in normal mode
+    include_declaration = true, -- optional: include the declaration itself
+    show_line = true,            -- optional: show the line text
+  }
+end, { desc = 'Telescope lsp references', noremap = true, silent = true })
 
 
 -- Persistence keymaps (sessions)
@@ -352,7 +362,7 @@ vim.opt.updatetime = 1000
 ------------------
 -- LSP Configuration
 ------------------
-local lspconfig = require('lspconfig')
+local lspconfig = vim.lsp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local util = require("lspconfig.util")
 
@@ -369,7 +379,7 @@ local function dockerized_cmd(local_cmd)
   return cmd
 end
 
-lspconfig.pyright.setup {
+lspconfig.config("pyright", {
   -- pyright normally runs as:
   --   { "pyright-langserver", "--stdio" }
   -- we wrap it via dockerized_cmd so it becomes:
@@ -396,7 +406,8 @@ lspconfig.pyright.setup {
   -- on_attach = function(client, bufnr)
   --   navic.attach(client, bufnr)
   -- end,
-}
+})
+lspconfig.enable("pyright")
 
 -- Pyright
 -- lspconfig.pyright.setup {
@@ -404,7 +415,7 @@ lspconfig.pyright.setup {
 -- }
 
 -- Tinymist
-lspconfig.tinymist.setup {
+lspconfig.config("tinymist", {
   capabilities = capabilities,
   offset_encoding = 'utf-8',
   settings = {
@@ -414,32 +425,37 @@ lspconfig.tinymist.setup {
   root_dir = function(fname)
     return vim.fn.getcwd()
   end,
-}
+})
+lspconfig.enable("tinymist")
 
 -- Biome
-lspconfig.biome.setup {
+lspconfig.config("biome", {
   capabilities = capabilities,
   root_dir = function(fname)
     return vim.fn.getcwd()
   end,
-}
+})
+lspconfig.enable("biome")
 
 -- nil_ls
-lspconfig.nil_ls.setup { capabilities = capabilities }
+lspconfig.config("nil_ls", { capabilities = capabilities })
+lspconfig.enable("nil_ls")
 
 -- Docker LS
-lspconfig.dockerls.setup { capabilities = capabilities }
+lspconfig.config("dockerls", { capabilities = capabilities })
+lspconfig.enable("dockerls")
 
 -- Clangd
-lspconfig.clangd.setup({
+lspconfig.config("clangd", {
   capabilities = capabilities,
   -- Uncomment and adjust if needed:
   cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
   init_options = { fallbackFlags = { "-std=c++23" } },
 })
+lspconfig.enable("clangd")
 
 -- TexLab (LaTeX)
-lspconfig.texlab.setup{
+lspconfig.config("texlab", {
   capabilities = capabilities,
   settings = {
     texlab = {
@@ -459,7 +475,8 @@ lspconfig.texlab.setup{
       },
     },
   },
-}
+})
+lspconfig.enable("texlab")
 
 ------------------
 -- Typst Preview

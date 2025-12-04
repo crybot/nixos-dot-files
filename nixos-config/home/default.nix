@@ -113,11 +113,13 @@ gtk = {
     settings = {
       font = {
         normal = {
+          family = "UbuntuMonoNerdFontMono";
+          # family = "Aporetic Sans Mono";
           # family = "FiraCode Nerd Font";
-          family = "Jetbrains Mono Nerd Font";
-          style = "Regular";
+          # family = "Jetbrains Mono Nerd Font";
+          # style = "Regular";
         };
-        size = 13.0;
+        size = 15.0; #WARNING: This is overridden by hosts/{host-id}/home.nix
       };
 
       colors = {
@@ -138,10 +140,11 @@ gtk = {
       };
 
       window = {
+        # resize_increments =true;
         dynamic_padding = true;
         padding = {
-          x = 5;
-          y = 10;
+          x = 4;
+          y = 8;
         };
       };
     };
