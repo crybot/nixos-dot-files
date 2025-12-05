@@ -259,17 +259,45 @@ require('lualine').setup {
 require('snacks').setup{
   bigfile = { enabled = true },
   -- dashboard = { enabled = true },
-  -- explorer = { enabled = true },
   indent = { enabled = true },
   input = { enabled = true },
-  picker = { enabled = true },
   notifier = { enabled = true },
   -- quickfile = { enabled = true },
   -- scope = { enabled = true },
   -- scroll = { enabled = true },
   -- statuscolumn = { enabled = true },
   words = { enabled = true },
+
+  explorer = {
+    enabled = true,
+    replace_netrw = true,
+  },
+
+  picker = {
+    enabled = true,
+    sources = {
+      explorer = {
+        tree = true,
+        auto_close = true,
+        win = {
+          list = {
+            keys = {
+              ["<C-t>"] = "edit_tab",  -- open selection in a new tab
+            },
+          },
+        },
+      },
+    },
+  },
 }
+
+-- 1. Keymap to open the Explorer
+vim.keymap.set('n', '<leader>e', function() require("snacks.explorer").open() end, { desc = "Snacks Explorer (Toggle)" })
+
+-- 2. Common keymap for revealing the current file
+vim.keymap.set('n', '<leader>E', function()
+  require("snacks.explorer").reveal()
+end, { desc = "Snacks Explorer (Reveal Current File)" })
 
 ------------------
 -- smear-cursor (Enhanced cursor highlighting)
@@ -695,3 +723,6 @@ require("tiny-inline-diagnostic").setup({
     },
   },
 })
+
+
+
