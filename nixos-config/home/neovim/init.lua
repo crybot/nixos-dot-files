@@ -115,13 +115,13 @@ end, { desc = 'Telescope lsp references', noremap = true, silent = true })
 
 -- Persistence keymaps (sessions)
 -- load the session for the current directory
-vim.keymap.set("n", "<leader>ss", function() require("persistence").load() end)
+vim.keymap.set("n", "<leader>ss", function() require("persistence").load() end, { desc = 'Load last session for the current directory' } )
 -- select a session to load
-vim.keymap.set("n", "<leader>sS", function() require("persistence").select() end)
+vim.keymap.set("n", "<leader>sS", function() require("persistence").select() end, { desc = 'Select session' } )
 -- load the last session
-vim.keymap.set("n", "<leader>sl", function() require("persistence").load({ last = true }) end)
+vim.keymap.set("n", "<leader>sl", function() require("persistence").load({ last = true }) end, { desc = 'Load last session' } )
 -- stop Persistence => session won't be saved on exit
-vim.keymap.set("n", "<leader>sd", function() require("persistence").stop() end)
+vim.keymap.set("n", "<leader>sd", function() require("persistence").stop() end, { desc = 'Forget this session' } )
 
 -- Other
 -- map('n', '<leader>R <cmd>source $MYVIMRC<CR>', opts)
@@ -268,7 +268,7 @@ require('snacks').setup{
   -- scope = { enabled = true },
   -- scroll = { enabled = true },
   -- statuscolumn = { enabled = true },
-  -- words = { enabled = true },
+  words = { enabled = true },
 }
 
 ------------------
@@ -592,7 +592,7 @@ require('persistence').setup({
   options = { "buffers", "curdir", "tabpages", "winsize" },
 })
 
-require('illuminate').configure({})
+-- require('illuminate').configure({})
 
 require('trouble').setup({
   -- you can keep defaults, this is just a tiny tweak set
@@ -685,3 +685,13 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 --         return {'treesitter', 'indent'}
 --     end
 -- })
+
+
+-- Tiny diagonistc lines
+require("tiny-inline-diagnostic").setup({
+  options = {
+    multilines = {
+      enabled = false,
+    },
+  },
+})

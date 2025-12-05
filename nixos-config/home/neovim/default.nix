@@ -85,10 +85,11 @@
         # Language servers, semantics, helpers
         ############################
         nvim-lspconfig        # common LSP server configs
-        vim-illuminate        # highlight LSP word references
+        # vim-illuminate        # highlight LSP word references
         refactoring-nvim      # interactive code refactoring helpers
         trouble-nvim
         aerial-nvim
+        tiny-inline-diagnostic-nvim
 
 
         ############################
