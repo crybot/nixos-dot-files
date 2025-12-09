@@ -33,6 +33,7 @@
         in {
           hyprsunset = unstablePkgs.hyprsunset;
         };
+      # anythingllm-flake = import ./modules/anythingllm;
     in {
       nixosConfigurations = {
         #NOTE: Use your hostname to name each nixosSystem; nix will look for the system's hostname when running 
@@ -55,8 +56,9 @@
                   catppuccin.homeModules.catppuccin
                 ];
               };
-
             }
+            ./modules/anythingllm-app/default.nix
+            ./modules/anythingllm/default.nix
           ];
         };
 

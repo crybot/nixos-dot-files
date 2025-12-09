@@ -138,6 +138,9 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    appimage-run
+    gzip
+    # librechat # LLM hub
     fd # find alternative, used by snacks-nvim.explorer
     gtk-engine-murrine
     gnome-themes-extra

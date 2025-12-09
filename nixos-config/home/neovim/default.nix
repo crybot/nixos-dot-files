@@ -11,8 +11,11 @@
       extraPackages = with pkgs; [
         tinymist
         texlab
-        pyright
-        biome
+        pyright # python language server
+        biome # js/html/css language server
+        isort
+        black
+        stylua
         nil
         dockerfile-language-server-nodejs
       ];
@@ -90,6 +93,7 @@
         trouble-nvim
         aerial-nvim
         tiny-inline-diagnostic-nvim
+        conform-nvim # formatter
 
 
         ############################
@@ -98,6 +102,7 @@
         ############################
         # indent-blankline-nvim # indent guides between lines
         nvim-treesitter.withAllGrammars # Treesitter parsing all languages
+        nvim-treesitter-textobjects
         vim-matchup           # enhanced % matching pairs
         rainbow-delimiters-nvim # rainbow colored delimiters
         nvim-ufo # folds

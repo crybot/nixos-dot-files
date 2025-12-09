@@ -83,4 +83,9 @@
   #   };
   # };
 
+  # AnythinLLM setup
+  # anythingllm.enable = true;
+  # anythingllm.storagePath = "/var/lib/anythingllm";
+  # anythingllm.composeFile = "/etc/anythingllm/docker-compose.yml";
+
 }

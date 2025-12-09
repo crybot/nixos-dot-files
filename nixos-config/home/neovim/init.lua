@@ -28,6 +28,10 @@ vim.opt.omnifunc = 'syntaxcomplete#Complete'    -- omnifunc for completion
 -- globally set the indent expression to Tree-sitter’s indent function
 vim.opt.indentexpr = "nvim_treesitter#indent()"
 
+-- Set the leader key on the spacebar (default is \, which is hard to reach)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " " -- Optional: for filetype-specific mappings
+
 -- Enable filetype plugins and syntax highlighting
 vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")
@@ -68,7 +72,7 @@ map('n', '<C-l>', 'gt', opts)
 map('n', '<C-h>', 'gT', opts)
 
 -- Clear search highlighting
-map('n', '<C-p>', ':nohlsearch<CR>', opts)
+map('n', '<C-p>', ':nohlsearch<CR>:echo<CR>', opts)
 
 -- In insert mode, move to end of line without leaving insert mode
 map('i', '<C-a>', '<C-o>A', {})
@@ -93,35 +97,35 @@ map('n', '<leader>ts', ':TexlabForward<CR>', opts)
 
 
 -- Telescope keymaps
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Telescope grep cursor' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+-- local builtin = require('telescope.builtin')
+-- vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+-- vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+-- vim.keymap.set('n', '<leader>fc', builtin.grep_string, { desc = 'Telescope grep cursor' })
+-- vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+-- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 -- vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope lsp references' })
-vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope lsp definitions' })
+-- vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope lsp definitions' })
 
 
 -- Normal-mode mapping: open references for symbol under cursor, in NORMAL mode
-vim.keymap.set('n', '<leader>fr', function()
-  require('telescope.builtin').lsp_references{
-    initial_mode = "normal", -- <-- open the picker in normal mode
-    include_declaration = true, -- optional: include the declaration itself
-    show_line = true,            -- optional: show the line text
-  }
-end, { desc = 'Telescope lsp references', noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>fr', function()
+--   require('telescope.builtin').lsp_references{
+--     initial_mode = "normal", -- <-- open the picker in normal mode
+--     include_declaration = true, -- optional: include the declaration itself
+--     show_line = true,            -- optional: show the line text
+--   }
+-- end, { desc = 'Telescope lsp references', noremap = true, silent = true })
 
 
 -- Persistence keymaps (sessions)
 -- load the session for the current directory
-vim.keymap.set("n", "<leader>ss", function() require("persistence").load() end, { desc = 'Load last session for the current directory' } )
+vim.keymap.set("n", "<leader>pl", function() require("persistence").load() end, { desc = 'Load last session for the current directory' } )
 -- select a session to load
-vim.keymap.set("n", "<leader>sS", function() require("persistence").select() end, { desc = 'Select session' } )
+vim.keymap.set("n", "<leader>ps", function() require("persistence").select() end, { desc = 'Select session' } )
 -- load the last session
-vim.keymap.set("n", "<leader>sl", function() require("persistence").load({ last = true }) end, { desc = 'Load last session' } )
+-- vim.keymap.set("n", "<leader>pl", function() require("persistence").load({ last = true }) end, { desc = 'Load last session' } )
 -- stop Persistence => session won't be saved on exit
-vim.keymap.set("n", "<leader>sd", function() require("persistence").stop() end, { desc = 'Forget this session' } )
+vim.keymap.set("n", "<leader>pd", function() require("persistence").stop() end, { desc = 'Forget this session' } )
 
 -- Other
 -- map('n', '<leader>R <cmd>source $MYVIMRC<CR>', opts)
@@ -257,22 +261,25 @@ require('lualine').setup {
 ------------------
 -- snacks (QoL improvements)
 require('snacks').setup{
-  bigfile = { enabled = true },
   -- dashboard = { enabled = true },
-  indent = { enabled = true },
-  input = { enabled = true },
-  notifier = { enabled = true },
   -- quickfile = { enabled = true },
   -- scope = { enabled = true },
   -- scroll = { enabled = true },
   -- statuscolumn = { enabled = true },
+  -- dim = { 
+  --   enabled = true,
+  --   scope = "window",
+  --   alpha = 0.5,
+  -- },
+  bigfile = { enabled = true },
+  indent = { enabled = true },
+  input = { enabled = true },
+  notifier = { enabled = true },
   words = { enabled = true },
-
   explorer = {
     enabled = true,
     replace_netrw = true,
   },
-
   picker = {
     enabled = true,
     sources = {
@@ -289,15 +296,47 @@ require('snacks').setup{
       },
     },
   },
+  scratch = {
+    enabled = true,
+    auto_save = true,
+    auto_restore = true,
+  },
 }
 
 -- 1. Keymap to open the Explorer
-vim.keymap.set('n', '<leader>e', function() require("snacks.explorer").open() end, { desc = "Snacks Explorer (Toggle)" })
 
--- 2. Common keymap for revealing the current file
-vim.keymap.set('n', '<leader>E', function()
-  require("snacks.explorer").reveal()
-end, { desc = "Snacks Explorer (Reveal Current File)" })
+-- Top Pickers & Explorer
+vim.keymap.set('n', '<leader>e', function() require("snacks.explorer").open() end, { desc = "Snacks Explorer (Toggle)" })
+vim.keymap.set('n', '<leader><space>', function() Snacks.picker.smart() end, {desc = "Smart Find Files"}) -- TODO: maybe map buffers() instead
+vim.keymap.set('n', '<leader>/', function() Snacks.picker.grep() end, {desc = "Grep"})
+vim.keymap.set('n', '<leader>.', function() Snacks.scratch() end, {desc = "Toggle Scratch Buffer"})
+
+-- files
+vim.keymap.set('n', '<leader>ff', function() Snacks.picker.files() end, {desc = "Find Files"})
+vim.keymap.set('n', '<leader>fr', function() Snacks.picker.recent() end, {desc = "Recent Files"})
+
+-- buffers
+vim.keymap.set('n', '<leader>fs', function() Snacks.scratch() end, {desc = "Scratch"})
+
+-- search
+-- vim.keymap.set('n', '<leader>gI', function() Snacks.picker.lsp_implementations() end, {desc = "Goto Implementation"})
+vim.keymap.set('n', '<leader>sg', function() Snacks.picker.grep() end, {desc = "Grep"})
+vim.keymap.set('n', '<leader>sc', function() Snacks.picker.grep_word() end, {desc = "Search word under cursor"})
+vim.keymap.set('n', '<leader>sm', function() Snacks.picker.marks() end, {desc = "Marks"})
+
+-- lsp
+vim.keymap.set('n', '<leader>gd', function() Snacks.picker.lsp_definitions() end, {desc = "Goto Definition"})
+vim.keymap.set('n', '<leader>gD', function() Snacks.picker.lsp_declarations() end, {desc = "Goto Declaration"})
+vim.keymap.set('n', '<leader>gr', function() Snacks.picker.lsp_references() end, {desc = "References"})
+vim.keymap.set('n', '<leader>gI', function() Snacks.picker.lsp_implementations() end, {desc = "Goto Implementation"})
+
+
+
+
+-- -- 2. Common keymap for revealing the current file
+-- vim.keymap.set('n', '<leader>E', function()
+--   require("snacks.explorer").reveal()
+-- end, { desc = "Snacks Explorer (Reveal Current File)" })
 
 ------------------
 -- smear-cursor (Enhanced cursor highlighting)
@@ -566,23 +605,51 @@ require('typst-preview').setup {
 ------------------
 -- Treesitter
 ------------------
-require('nvim-treesitter.configs').setup {
-  -- ensure_installed = { "python", "typst", "vim", "lua", "dockerfile" },
-  sync_install = false,
-  -- auto_install = true,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  indent = {
-    enable = true,
-    disable = { "typst" },
-  },
-  matchup = {
-    enable = true,
-    disable = {},
-  },
-}
+require("nvim-treesitter.configs").setup({
+	-- ensure_installed = { "python", "typst", "vim", "lua", "dockerfile" },
+	sync_install = false,
+	-- auto_install = true,
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+	indent = {
+		enable = true,
+		disable = { "typst" },
+	},
+	matchup = {
+		enable = true,
+		disable = {},
+	},
+
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+				["ib"] = "@block.inner",
+				["ab"] = "@block.outer",
+				["ip"] = "@call.inner",
+				["ap"] = "@call.outer",
+				["ia"] = "@parameter.inner",
+				["aa"] = "@parameter.outer",
+			},
+		},
+		swap = {
+			enable = true,
+			swap_next = {
+				["gsa"] = "@parameter.inner", -- Swap parameters/arguments with next
+			},
+			swap_previous = {
+				["gsA"] = "@parameter.inner", -- Swap parameters/arguments with prev
+			},
+		},
+	},
+})
 
 ------------------
 -- virt-column (Visual Column Marker)
@@ -725,4 +792,23 @@ require("tiny-inline-diagnostic").setup({
 })
 
 
+-- Code formatter
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
+  },
+})
 
+-- vim.keymap.set({ "n", "v" }, "gq", function()
+--   require("conform").format({
+--     lsp_fallback = true,
+--     async = false,
+--     timeout_ms = 500,
+--   })
+-- end, { desc = "Format file or range (in visual mode)" })
+
+
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.keymap.set("n", "=", "gq", { desc = "Format with motion", remap = true })
+vim.keymap.set("x", "=", "gq", { desc = "Format selection", remap = true })

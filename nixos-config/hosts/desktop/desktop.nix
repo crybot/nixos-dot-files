@@ -34,4 +34,10 @@
     acceleration = "cuda";
   };
 
+  # anythingllm.enable = true;
+
+  programs.anythingllm-desktop = {
+    enable = true;
+  };
+
 }
