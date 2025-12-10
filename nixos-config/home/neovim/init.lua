@@ -56,6 +56,15 @@ vim.cmd("syntax on")
 -- Global Variables for Plugins ⚙️
 ------------------------------------------------------------
 
+local signs = {
+	Error = " ",
+	Warn = " ",
+	Hint = "󰌵 ",
+	Info = " ",
+}
+
+local colors = require("catppuccin.palettes").get_palette()
+
 -- Disable netrw for nvim-tree/snacks
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
@@ -77,6 +86,19 @@ g.closetag_close_shortcut = "<leader>>"
 
 -- LaTeX viewer setting
 g.latex_view_method = "zathura"
+
+-- Assign icons to diagonistc signs
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = signs.Error,
+			[vim.diagnostic.severity.WARN] = signs.Warn,
+			[vim.diagnostic.severity.HINT] = signs.Hint,
+			[vim.diagnostic.severity.INFO] = signs.Info,
+		},
+	},
+})
+
 
 ------------------------------------------------------------
 -- Key Mappings ⌨️
@@ -141,7 +163,7 @@ map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble: quic
 -- Format mappings (using conform)
 o.formatexpr = "v:lua.require'conform'.formatexpr()"
 map("n", "=", "gq", { desc = "Format with motion", remap = true })
-map("x", "=", "gq", { desc = "Format selection", remap = true })
+map("x", "=", "gq", { desc = "Format selection", remap = true }) -- TODO: add visual mode
 
 ------------------------------------------------------------
 -- Plugin Setup & Configurations 📦
@@ -244,7 +266,38 @@ require('lualine').setup {
         end,
       },
     },
-    lualine_x = { 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+    lualine_x = {
+      {
+        -- lsp server name .
+        function()
+          local msg = 'No Active Lsp'
+          local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+          local clients = vim.lsp.get_clients()
+          if next(clients) == nil then
+            return msg
+          end
+          for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+              return client.name
+            end
+          end
+          return msg
+        end,
+        icon = ' LSP:',
+        color = { fg = colors.mauve },
+      },
+      {
+        'diagnostics',
+        sources = {'nvim_lsp'},
+        sections = {'error', 'warn', 'info', 'hint'},
+        symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' },
+        color = { gui = 'bold' },
+      },
+      'encoding',
+      'fileformat',
+      'filetype',
+    },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
@@ -493,10 +546,16 @@ require("tiny-inline-diagnostic").setup({
 
 -- Code formatter
 require("conform").setup({
-  formatters_by_ft = {
-    lua = { "stylua" },
-    python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
-  },
+	formatters_by_ft = {
+		lua = { "stylua" },
+		python = { "isort", "black" }, -- Conform will run multiple formatters sequentially
+	},
+	default_format_opts = {
+		timeout_ms = 3000,
+		async = false, -- not recommended to change
+		quiet = false, -- not recommended to change
+		lsp_format = "fallback", -- not recommended to change
+	},
 })
 
 
