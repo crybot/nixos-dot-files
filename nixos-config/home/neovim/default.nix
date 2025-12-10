@@ -102,7 +102,7 @@
         ############################
         # indent-blankline-nvim # indent guides between lines
         nvim-treesitter.withAllGrammars # Treesitter parsing all languages
-        nvim-treesitter-textobjects
+        nvim-treesitter-textobjects # AST based textobjects
         vim-matchup           # enhanced % matching pairs
         rainbow-delimiters-nvim # rainbow colored delimiters
         nvim-ufo # folds

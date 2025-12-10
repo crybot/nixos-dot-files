@@ -132,7 +132,7 @@ map("n", "<leader>pl", function() require("persistence").load() end, { desc = "L
 map("n", "<leader>ps", function() require("persistence").select() end, { desc = "Select session" })
 map("n", "<leader>pd", function() require("persistence").stop() end, { desc = "Forget this session" })
 
--- --- Snacks Keymaps (Consolidated) ---
+-- --- Snacks Keymaps
 local Snacks = require("snacks")
 map("n", "<C-n>", function() require("snacks.explorer").open() end, { desc = "Snacks Explorer (Toggle)" })
 map("n", "<leader>e", function() require("snacks.explorer").open() end, { desc = "Snacks Explorer (Toggle)" })
@@ -164,6 +164,22 @@ map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble: quic
 o.formatexpr = "v:lua.require'conform'.formatexpr()"
 map("n", "=", "gq", { desc = "Format with motion", remap = true })
 map("x", "=", "gq", { desc = "Format selection", remap = true }) -- TODO: add visual mode
+
+-- Treesitter-textobjects (repeatable move actions)
+local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+-- Repeat movement with ; and ,
+-- ensure ; goes forward and , goes backward regardless of the last direction
+map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+
+-- vim way: ; goes to the direction you were moving.
+-- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+-- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
 ------------------------------------------------------------
 -- Plugin Setup & Configurations 📦
@@ -264,6 +280,10 @@ require('lualine').setup {
         cond = function()
           return navic.is_available()
         end,
+
+        color = {
+          gui = 'bold',
+        },
       },
     },
     lualine_x = {
@@ -292,7 +312,6 @@ require('lualine').setup {
         sources = {'nvim_lsp'},
         sections = {'error', 'warn', 'info', 'hint'},
         symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' },
-        color = { gui = 'bold' },
       },
       'encoding',
       'fileformat',
@@ -460,6 +479,26 @@ require("nvim-treesitter.configs").setup({
 				["gsA"] = "@parameter.inner", -- Swap parameters/arguments with prev
 			},
 		},
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]p"] = "@parameter.outer",
+        ["]]"] = "@parameter.outer",
+        ["<leader>gp"] = "@parameter.outer",
+      },
+      goto_next_end = {
+
+      },
+      goto_previous_start = {
+        ["[p"] = "@parameter.outer",
+        ["[["] = "@parameter.outer",
+        ["<leader>gP"] = "@parameter.outer",
+      },
+      goto_previous_end = {
+
+      },
+    },
 	},
 })
 
