@@ -21,6 +21,10 @@
       display-filebrowser = "   Files";
       sidebar-mode = true;
     };
+    plugins = with pkgs; [
+      rofi-calc
+    ];
+
     location = "center";
     theme = ./rounded.rasi;
   };

@@ -138,6 +138,7 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    libqalculate # natural language calculator (qalc)
     appimage-run
     gzip
     # librechat # LLM hub
