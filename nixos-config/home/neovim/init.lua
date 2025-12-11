@@ -99,6 +99,8 @@ vim.diagnostic.config({
 	},
 })
 
+-- Disable python mappings (they clash with, e.g., snacks.words ]] and [[ )
+g.no_python_maps = 1
 
 ------------------------------------------------------------
 -- Key Mappings ⌨️
@@ -148,6 +150,8 @@ map("n", "<leader>gd", Snacks.picker.lsp_definitions, { desc = "Goto Definition"
 map("n", "<leader>gD", Snacks.picker.lsp_declarations, { desc = "Goto Declaration" })
 map("n", "<leader>gr", Snacks.picker.lsp_references, { desc = "References" })
 map("n", "<leader>gI", Snacks.picker.lsp_implementations, { desc = "Goto Implementation" })
+map("n",  "]]", function() Snacks.words.jump(1, true) end, { desc = "Next Reference" })
+map("n",  "[[", function() Snacks.words.jump(-1, true) end, { desc = "Prev Reference"})
 
 -- Toggle Aerial (outline)
 map("n", "<leader>m", "<cmd>AerialToggle!<CR>", { desc = "Toggle File Outline" })
@@ -468,15 +472,17 @@ require("nvim-treesitter.configs").setup({
 				["ap"] = "@parameter.outer",
 				["ia"] = "@assignment.inner",
 				["aa"] = "@assignment.outer",
+				["al"] = "@assignment.lhs",
+				["ar"] = "@assignment.rhs",
 			},
 		},
 		swap = {
 			enable = true,
 			swap_next = {
-				["gsa"] = "@parameter.inner", -- Swap parameters/arguments with next
+				["gsp"] = "@parameter.inner", -- Swap parameters/arguments with next
 			},
 			swap_previous = {
-				["gsA"] = "@parameter.inner", -- Swap parameters/arguments with prev
+				["gsP"] = "@parameter.inner", -- Swap parameters/arguments with prev
 			},
 		},
     move = {
@@ -484,7 +490,6 @@ require("nvim-treesitter.configs").setup({
       set_jumps = true,
       goto_next_start = {
         ["]p"] = "@parameter.outer",
-        ["]]"] = "@parameter.outer",
         ["<leader>gp"] = "@parameter.outer",
       },
       goto_next_end = {
@@ -492,7 +497,6 @@ require("nvim-treesitter.configs").setup({
       },
       goto_previous_start = {
         ["[p"] = "@parameter.outer",
-        ["[["] = "@parameter.outer",
         ["<leader>gP"] = "@parameter.outer",
       },
       goto_previous_end = {
@@ -679,6 +683,7 @@ lspconfig.config("clangd", {
     on_attach = on_attach,
     cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
     init_options = { fallbackFlags = { "-std=c++23" } },
+    root_dir = util.find_git_ancestor, -- Use standard root detection
 })
 lspconfig.enable("clangd")
 

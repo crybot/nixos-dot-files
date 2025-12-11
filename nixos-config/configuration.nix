@@ -17,7 +17,7 @@ let
   '';
   telegramGnome = pkgs.writeShellScriptBin "telegram-desktop" ''
       #!/bin/sh 
-      XDG_CURRENT_DESKTOP=gnome exec ${pkgs.telegram-desktop}/bin/telegram-desktop "$@"
+      XDG_CURRENT_DESKTOP=gnome exec ${pkgs.telegram-desktop}/bin/Telegram "$@"
   '';
 
   patched-en-croissant = pkgs.writeShellScriptBin "en-croissant" ''
