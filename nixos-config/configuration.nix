@@ -138,6 +138,7 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    translate-shell
     libqalculate # natural language calculator (qalc)
     appimage-run
     gzip

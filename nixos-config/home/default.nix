@@ -257,6 +257,10 @@ gtk = {
     source = ./rofi/rofi-menu.sh;
     executable = true;
   };
+  home.file."scripts/rofi-translate.sh" = {
+    source = ./rofi/rofi-translate.sh;
+    executable = true;
+  };
   home.file."scripts/take-screenshot.sh" = {
     source = ./rofi/take-screenshot.sh;
     executable = true;
