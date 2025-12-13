@@ -143,8 +143,10 @@ map("n", "<leader>/", Snacks.picker.grep, { desc = "Grep" })
 map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
 map("n", "<leader>ff", Snacks.picker.files, { desc = "Find Files" })
 map("n", "<leader>fr", Snacks.picker.recent, { desc = "Recent Files" })
+map("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find Buffers" })
 map("n", "<leader>sg", Snacks.picker.grep, { desc = "Grep" })
-map("n", "<leader>sc", Snacks.picker.grep_word, { desc = "Search word under cursor" })
+map("n", "<leader>sb", Snacks.picker.grep_buffers, { desc = "Grep Buffers" })
+map("n", "<leader>sc", Snacks.picker.grep_word, { desc = "Search Word Under Cursor" })
 map("n", "<leader>sm", Snacks.picker.marks, { desc = "Marks" })
 map("n", "<leader>gd", Snacks.picker.lsp_definitions, { desc = "Goto Definition" })
 map("n", "<leader>gD", Snacks.picker.lsp_declarations, { desc = "Goto Declaration" })
@@ -364,7 +366,6 @@ require('snacks').setup{
 require('smear_cursor').setup{
   stiffness = 0.8,
   trailing_stiffness = 0.5,
-  distance_stop_animating = 0.5,
   smear_to_cmd = false, -- otherwise it breaks inputlist() choices (See https://github.com/neovim/neovim/issues/32068)
   hide_target_hack = true,
   never_draw_over_target = true,
@@ -439,7 +440,7 @@ require('typst-preview').setup {
 
 -- Treesitter
 require("nvim-treesitter.configs").setup({
-	-- ensure_installed = { "python", "typst", "vim", "lua", "dockerfile" },
+  auto_install = false,
 	sync_install = false,
 	-- auto_install = true,
 	highlight = {
@@ -601,6 +602,13 @@ require("conform").setup({
 	},
 })
 
+require("lazydev").setup({
+	library = {
+		-- Explicitly load snacks.nvim types when the global 'Snacks' is found
+		{ path = "snacks.nvim", words = { "Snacks" } },
+	},
+})
+
 
 ------------------------------------------------------------
 -- LSP Configuration ⚙️
@@ -708,6 +716,28 @@ lspconfig.config("texlab", {
     },
 })
 lspconfig.enable("texlab")
+
+-- lua-language-server (Lua)
+lspconfig.config("lua_ls", {
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+        disable = { 'missing-fields' },
+			},
+			workspace = {
+				checkThirdParty = false,
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+})
+lspconfig.enable("lua_ls")
+
+
 
 ------------------------------------------------------------
 -- LSP Auto-Hover Logic 💡

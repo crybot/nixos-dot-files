@@ -9,6 +9,7 @@
       vimAlias = true;
       extraLuaConfig = builtins.readFile ./init.lua;
       extraPackages = with pkgs; [
+        lua-language-server # lua language server
         tinymist
         texlab
         pyright # python language server
@@ -88,12 +89,13 @@
         # Language servers, semantics, helpers
         ############################
         nvim-lspconfig        # common LSP server configs
-        # vim-illuminate        # highlight LSP word references
+        # vim-illuminate       # highlight LSP word references
         refactoring-nvim      # interactive code refactoring helpers
         trouble-nvim
         aerial-nvim
         tiny-inline-diagnostic-nvim
         conform-nvim # formatter
+        lazydev-nvim          # lsp companion for neovim
 
 
         ############################
