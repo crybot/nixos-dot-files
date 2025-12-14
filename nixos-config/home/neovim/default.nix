@@ -63,8 +63,9 @@
         lualine-nvim          # flexible statusline component
         bufferline-nvim       # tab-like buffer line
         virt-column-nvim      # virtual column guideline
-        fidget-nvim
-        nvim-navic
+        fidget-nvim           # LSP notifications and progress
+        nvim-navic            # breadcrumbs (to be manually integrate with lualine)
+        dropbar-nvim          # Ready-to-use breadcrumbs bar (does not depend on navic)
 
         ############################
         # File / buffer navigation

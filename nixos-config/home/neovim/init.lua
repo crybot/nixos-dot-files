@@ -20,7 +20,8 @@ o.relativenumber = false    -- Use relative numbers
 o.cursorline = true         -- Highlight current line
 o.termguicolors = true      -- Enable true colors
 o.mouse = "a"               -- Enable mouse support in all modes
-o.updatetime = 1000          -- Faster update time for CursorHold events (for LSP)
+o.updatetime = 1000         -- Update time for CursorHold events (for LSP)
+-- o.winbar = "%=%m %f"        -- Relative names in the winbar
 
 -- Indentation & Tabs
 o.tabstop = 2               -- Spaces per tab in the file
@@ -193,43 +194,60 @@ map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
 -- Catppuccin (Color Scheme Integration)
 require("catppuccin").setup({
-  flavour = "macchiato",
-  auto_integrations = true,
+	flavour = "macchiato",
+	auto_integrations = true,
 
-  integrations = {
-    treesitter = true,
-    aerial = true,
-    navic = {
-      enabled = true,
-      custom_bg = "lualine",
-    },
-  },
+	integrations = {
+		treesitter = true,
+		aerial = true,
+		navic = {
+			enabled = true,
+			custom_bg = "lualine",
+		},
+		dropbar = {
+			enabled = true,
+			color_mode = true,
+		},
+	},
 
-  styles = {
-    comments = { "italic" },
-    -- conditionals = { "italic" }, -- (if, else) Separates logic from data
-    -- loops = { "italic" },        -- (for, while) Matches conditionals style
-    functions = { "bold" },      -- (func_name) Makes function calls/definitions pop
-    -- keywords = { "italic" },     -- (return, class) Helps scan for structure
-    strings = {},                -- Keep plain to avoid visual clutter
-    variables = {},              -- Keep plain; they are the most common text
-    numbers = {},
-    booleans = { "bold" },       -- (true, false) Important constants often drive logic
-    properties = {},
-    types = { "bold" },          -- (String, Int) Distinguishes types from variables
-    operators = {},
-  },
-  lsp_styles = {
-    underlines = {
-      errors = { "undercurl" },    -- "Squiggly" lines are standard for errors
-      hints = { "underline" },
-      warnings = { "undercurl" },  -- Distinguish warnings from info/hints
-      information = { "underline" },
-    },
-    inlay_hints = {
-      background = true,
-    },
-  },
+	styles = {
+		comments = { "italic" },
+		-- conditionals = { "italic" }, -- (if, else) Separates logic from data
+		-- loops = { "italic" },        -- (for, while) Matches conditionals style
+		functions = { "bold" }, -- (func_name) Makes function calls/definitions pop
+		-- keywords = { "italic" },     -- (return, class) Helps scan for structure
+		strings = {}, -- Keep plain to avoid visual clutter
+		variables = {}, -- Keep plain; they are the most common text
+		numbers = {},
+		booleans = { "bold" }, -- (true, false) Important constants often drive logic
+		properties = {},
+		types = { "bold" }, -- (String, Int) Distinguishes types from variables
+		operators = {},
+	},
+	lsp_styles = {
+		underlines = {
+			errors = { "undercurl" }, -- "Squiggly" lines are standard for errors
+			hints = { "underline" },
+			warnings = { "undercurl" }, -- Distinguish warnings from info/hints
+			information = { "underline" },
+		},
+		inlay_hints = {
+			background = true,
+		},
+	},
+
+	custom_highlights = function(colors)
+		return {
+			-- 'mantle' is darker than 'base' (editor bg).
+			-- 'crust' is even darker if you want high contrast.
+
+			-- Set the background of the winbar to mantle
+			WinBar = { bg = colors.mantle},
+
+			-- Optional: Make inactive splits even darker or the same
+			WinBarNC = { bg = colors.mantle, fg = colors.overlay0 },
+		}
+	end,
 })
 vim.cmd.colorscheme "catppuccin"
 
@@ -279,18 +297,18 @@ require('lualine').setup {
     lualine_b = { 'branch' },
     lualine_c = {
       { 'filename', path = 1 },
-      {
-        function()
-          return navic.get_location()
-        end,
-        cond = function()
-          return navic.is_available()
-        end,
+      -- {
+      --   function()
+      --     return navic.get_location()
+      --   end,
+      --   cond = function()
+      --     return navic.is_available()
+      --   end,
 
-        color = {
-          gui = 'bold',
-        },
-      },
+      --   color = {
+      --     gui = 'bold',
+      --   },
+      -- },
     },
     lualine_x = {
       {
@@ -393,6 +411,8 @@ require("bufferline").setup{
       style = 'icon'
     },
     diagnostics = "nvim_lsp",
+    duplicates_across_groups = false,
+    show_duplicate_prefix = true,
   }
 }
 
@@ -607,6 +627,10 @@ require("lazydev").setup({
 		-- Explicitly load snacks.nvim types when the global 'Snacks' is found
 		{ path = "snacks.nvim", words = { "Snacks" } },
 	},
+})
+
+require("dropbar").setup({
+
 })
 
 
