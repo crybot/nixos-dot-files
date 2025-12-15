@@ -42,6 +42,7 @@
         vim-surround          # edit surrounding pairs
         vim-repeat            # repeat plugin-defined mappings
         vim-closetag          # auto close HTML tags
+        mini-pairs
 
         ############################
         # Clipboard / jobs / terminal

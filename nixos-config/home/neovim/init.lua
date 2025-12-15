@@ -629,9 +629,10 @@ require("lazydev").setup({
 	},
 })
 
-require("dropbar").setup({
+-- TODO: disable for terminal windows
+require("dropbar").setup({})
 
-})
+require("mini.pairs").setup({})
 
 
 ------------------------------------------------------------
