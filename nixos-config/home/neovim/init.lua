@@ -703,7 +703,7 @@ lspconfig.config("tinymist", {
         formatterMode = "typstyle",
         exportPdf = "onSave",
     },
-    root_dir = util.find_git_ancestor, -- Use standard root detection
+    root_markers = { "typst.toml", ".git" },
 })
 lspconfig.enable("tinymist")
 
@@ -711,7 +711,7 @@ lspconfig.enable("tinymist")
 lspconfig.config("biome", {
     capabilities = capabilities,
     on_attach = on_attach,
-    root_dir = util.find_git_ancestor, -- Use standard root detection
+    root_markers = { "biome.json", "package.json", ".git" },
 })
 lspconfig.enable("biome")
 
@@ -735,7 +735,7 @@ lspconfig.config("clangd", {
     on_attach = on_attach,
     cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
     init_options = { fallbackFlags = { "-std=c++23" } },
-    root_dir = util.find_git_ancestor, -- Use standard root detection
+    root_markers = { ".clang-format", "compile_commands.json", ".git" },
 })
 lspconfig.enable("clangd")
 
