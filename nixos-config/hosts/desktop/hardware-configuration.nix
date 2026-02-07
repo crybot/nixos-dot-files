@@ -17,6 +17,12 @@
     options nct6775 force_id=0xd801
   ''; 
 
+  #   boot.kernelParams = [
+  #     # Format: vendor:product:quirks 
+  #     # 0x04 = HID_QUIRK_ALWAYS_POLL
+  #     "usbhid.quirks=0x0c45:0xfdfd:0x04"
+  #   ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/5b510ed4-a4a1-4e8d-9440-53e1335cc50c";
       fsType = "ext4";

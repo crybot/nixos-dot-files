@@ -74,7 +74,7 @@ in
 
         };
 
-        TranslateEnabled = false;
+        TranslateEnabled = true;
         OfferToSaveLogins = false;
         PictureInPicture = {
           enabled = false;

@@ -1,7 +1,7 @@
 -- Neovim init.lua
 
 -- Use the Lua loader for faster startup
-vim.loader.enable()
+-- vim.loader.enable()
 
 ------------------------------------------------------------
 -- Global Settings & Options ✨
@@ -29,7 +29,7 @@ o.softtabstop = 2           -- Spaces in tab when editing
 o.shiftwidth = 2            -- Spaces for (auto)indentation
 o.expandtab = true          -- Use spaces instead of tabs
 o.autoindent = true         -- Copy indent from current line
-o.indentexpr = "nvim_treesitter#indent()" -- Tree-sitter indentation
+o.indentexpr = "v:lua.vim.treesitter.indentexpr()" -- Tree-sitter indentation
 
 -- Formatting & Display
 o.textwidth = 120           -- Max width before wrapping
@@ -173,7 +173,7 @@ map("n", "=", "gq", { desc = "Format with motion", remap = true })
 map("x", "=", "gq", { desc = "Format selection", remap = true }) -- TODO: add visual mode
 
 -- Treesitter-textobjects (repeatable move actions)
-local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
 -- Repeat movement with ; and ,
 -- ensure ; goes forward and , goes backward regardless of the last direction
 map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
@@ -459,73 +459,68 @@ require('typst-preview').setup {
 }
 
 -- Treesitter
-require("nvim-treesitter.configs").setup({
-  auto_install = false,
-	sync_install = false,
-	-- auto_install = true,
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	indent = {
-		enable = true,
-		disable = { "typst" },
-	},
-	matchup = {
-		enable = true,
-		disable = {},
-	},
-
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-			keymaps = {
-				["aF"] = "@function.outer",
-				["iF"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-				["ib"] = "@block.inner",
-				["ab"] = "@block.outer",
-				["if"] = "@call.inner",
-				["af"] = "@call.outer",
-				["ip"] = "@parameter.inner",
-				["ap"] = "@parameter.outer",
-				["ia"] = "@assignment.inner",
-				["aa"] = "@assignment.outer",
-				["al"] = "@assignment.lhs",
-				["ar"] = "@assignment.rhs",
-			},
-		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["gsp"] = "@parameter.inner", -- Swap parameters/arguments with next
-			},
-			swap_previous = {
-				["gsP"] = "@parameter.inner", -- Swap parameters/arguments with prev
-			},
-		},
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]p"] = "@parameter.outer",
-        ["<leader>gp"] = "@parameter.outer",
-      },
-      goto_next_end = {
-
-      },
-      goto_previous_start = {
-        ["[p"] = "@parameter.outer",
-        ["<leader>gP"] = "@parameter.outer",
-      },
-      goto_previous_end = {
-
-      },
-    },
-	},
+-- Enable Treesitter highlighting and indentation for all filetypes with a parser
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
 })
+
+-- Treesitter Textobjects
+require("nvim-treesitter-textobjects").setup({
+  select = {
+    lookahead = true,
+  },
+  move = {
+    set_jumps = true,
+  }
+})
+
+local ts_select = require("nvim-treesitter-textobjects.select")
+local ts_swap = require("nvim-treesitter-textobjects.swap")
+local ts_move = require("nvim-treesitter-textobjects.move")
+
+-- Textobjects: Select
+local select_maps = {
+  ["aF"] = "@function.outer",
+  ["iF"] = "@function.inner",
+  ["ac"] = "@class.outer",
+  ["ic"] = "@class.inner",
+  ["ib"] = "@block.inner",
+  ["ab"] = "@block.outer",
+  ["if"] = "@call.inner",
+  ["af"] = "@call.outer",
+  ["ip"] = "@parameter.inner",
+  ["ap"] = "@parameter.outer",
+  ["ia"] = "@assignment.inner",
+  ["aa"] = "@assignment.outer",
+  ["al"] = "@assignment.lhs",
+  ["ar"] = "@assignment.rhs",
+}
+
+for key, query in pairs(select_maps) do
+  vim.keymap.set({ "x", "o" }, key, function()
+    ts_select.select_textobject(query, "textobjects")
+  end)
+end
+
+-- Textobjects: Swap
+vim.keymap.set("n", "gsp", function() ts_swap.swap_next("@parameter.inner") end)
+vim.keymap.set("n", "gsP", function() ts_swap.swap_previous("@parameter.inner") end)
+
+-- Textobjects: Move
+local move_maps = {
+  ["]p"] = { query = "@parameter.outer", func = ts_move.goto_next_start },
+  ["[p"] = { query = "@parameter.outer", func = ts_move.goto_previous_start },
+  ["<leader>gp"] = { query = "@parameter.outer", func = ts_move.goto_next_start },
+  ["<leader>gP"] = { query = "@parameter.outer", func = ts_move.goto_previous_start },
+}
+
+for key, def in pairs(move_maps) do
+  vim.keymap.set({ "n", "x", "o" }, key, function()
+    def.func(def.query)
+  end)
+end
 
 -- virt-column (Visual Column Marker)
 require("virt-column").setup()
@@ -633,6 +628,30 @@ require("lazydev").setup({
 require("dropbar").setup({})
 
 require("mini.pairs").setup({})
+
+require("render-markdown").setup({})
+
+-- codecompanion (AI)
+-- require("codecompanion").setup({
+--   interactions = {
+--     chat = { adapter = "gemini" },
+--     inline = { adapter = "gemini" },
+--     agent = { adapter = "gemini" },
+--     cmd = { adapter = "gemini" },
+--   },
+--   adapters = {
+--     gemini = function()
+--       return require("codecompanion.adapters").extend("gemini", {
+--         env = {
+--           api_key = os.getenv("GEMINI_API_KEY"),
+--         },
+--         schema = {
+--           model = { default = "gemini-3-pro-preview" },
+--         },
+--       })
+--     end,
+--   },
+-- })
 
 
 ------------------------------------------------------------

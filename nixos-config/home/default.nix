@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -31,20 +36,24 @@
   # changes in each release.
   home.stateVersion = "24.05";
 
-gtk = {
-  enable = true;
-  colorScheme = "dark";
-  theme = {
-    # IMPORTANT: must match exactly the directory inside share/themes
-    name = "Catppuccin-GTK-Purple-Dark"; # ← example
-    package = pkgs.magnetic-catppuccin-gtk.override {
-      accent = [ "purple" ];
-      shade  = "dark";
-      size   = "standard";
-      tweaks = [ "black" "float" "macos" ];
+  gtk = {
+    enable = true;
+    colorScheme = "dark";
+    theme = {
+      # IMPORTANT: must match exactly the directory inside share/themes
+      name = "Catppuccin-GTK-Mauve-Dark"; # ← example
+      package = pkgs.magnetic-catppuccin-gtk.override {
+        accent = [ "mauve" ];
+        shade = "dark";
+        size = "standard";
+        tweaks = [
+          "black"
+          "float"
+          "macos"
+        ];
+      };
     };
   };
-};
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -55,7 +64,7 @@ gtk = {
     foot.enable = true;
     git = {
       enable = true;
-      userName  = "crybot";
+      userName = "crybot";
       userEmail = "crybot@hotmail.it";
     };
     btop = {
@@ -80,7 +89,7 @@ gtk = {
 
     alacritty = {
       enable = true;
-      flavor = "mocha"; #TODO: also test "macchiato"
+      flavor = "mocha"; # TODO: also test "macchiato"
     };
     bat = {
       enable = true;
@@ -119,7 +128,7 @@ gtk = {
           # family = "Jetbrains Mono Nerd Font";
           # style = "Regular";
         };
-        size = 15.0; #WARNING: This is overridden by hosts/{host-id}/home.nix
+        size = 15.0; # WARNING: This is overridden by hosts/{host-id}/home.nix
       };
 
       colors = {
@@ -175,6 +184,56 @@ gtk = {
   };
   programs.zoxide = {
     enable = true;
+  };
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      # Force the OSD to show milliseconds (HH:MM:SS.mmm)
+      osd-fractions = true;
+    };
+    bindings = {
+      # Bind 'Shift+f' to show Frame Number + Timestamp
+      "F" =
+        "show-text \"Frame: \${estimated-frame-number} / \${estimated-frame-count} \\nTime: \${time-pos}\"";
+    };
+  };
+
+  programs.gemini-cli = {
+    enable = true;
+
+    settings = {
+      model = {
+        name = "gemini-3-pro-preview";
+      };
+
+      context = {
+        loadMemoryFromIncludeDirectories = true;
+      };
+      general = {
+        preferredEditor = "neovim";
+        previewFeatures = true;
+        vimMode = false;
+      };
+      ide = {
+        enabled = true;
+      };
+      privacy = {
+        usageStatisticsEnabled = false;
+      };
+      security = {
+        auth = {
+          selectedType = "gemini-api-key";
+        };
+      };
+      tools = {
+        autoAccept = false;
+      };
+      # ui = {
+      #   theme = "Default";
+      # };
+    };
+
   };
 
   services.swaync = {
@@ -241,14 +300,14 @@ gtk = {
   xdg.mimeApps = {
     enable = true;
     associations.added = {
-      "application/pdf" = ["zathura"];
+      "application/pdf" = [ "zathura" ];
     };
     defaultApplications = {
-      "application/pdf" = ["zathura"];
+      "application/pdf" = [ "zathura" ];
     };
   };
 
-  # scripts 
+  # scripts
   home.file."scripts/rofi-hyprshot.sh" = {
     source = ./rofi/rofi-hyprshot.sh;
     executable = true;

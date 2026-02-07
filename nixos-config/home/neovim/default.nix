@@ -13,12 +13,14 @@
         tinymist
         texlab
         pyright # python language server
+        basedpyright
         biome # js/html/css language server
         isort
         black
         stylua
         nil
         dockerfile-language-server-nodejs
+        python313Packages.pylatexenc # used by render-markdown-nvim to render latex strings
       ];
       extraWrapperArgs = [
         # "--prefix"
@@ -99,6 +101,15 @@
         conform-nvim # formatter
         lazydev-nvim          # lsp companion for neovim
 
+        ############################
+        # AI
+        ############################
+        codecompanion-nvim
+
+        ############################
+        # Markdown
+        ############################
+        render-markdown-nvim
 
         ############################
         # Treesitter / syntax / structure

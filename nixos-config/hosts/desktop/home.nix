@@ -30,7 +30,7 @@
           # require replicate style.css under each other configuration that does not use blur.
           enabled = true; 
           size = 6;
-          passes = 4;
+          passes = 3;
           ignore_opacity = true;
           new_optimizations = true;
           noise = 0.0117;
@@ -38,23 +38,34 @@
           popups = true;
         };
       };
-      windowrulev2 = [
-        "opacity 0.7 override 0.7 override 0.7 override, class:(blueman)"
-        "opacity 0.7 override 0.7 override 0.7 override, class:(nm-connection-editor)"
-        "opacity 0.7 override 0.7 override 0.7 override, class:(nm-applet)"
-        "opacity 0.7 override 0.7 override 0.7 override, class:(io.github.kaii_lb.Overskride)"
-        "opacity 1.0  override, class:(Alacritty)"
-      ];
-      layerrule = [ 
-        "blur, waybar" # Add blur to waybar
-        "blurpopups, waybar"# Blur waybar popups too!
-        "ignorealpha 0.2, waybar "# Make it so transparent parts are ignored
-        "blur, rofi" 
-        "ignorezero, rofi"
-        "dimaround, rofi"
-        "blurpopups, rofi"
-      ];
+      windowrule = [
+          # Syntax: effect value, match:prop regex
+          "opacity 0.7 0.7 0.7, match:class ^(blueman)$"
+          "opacity 0.7 0.7 0.7, match:class ^(nm-connection-editor)$"
+          "opacity 0.7 0.7 0.7, match:class ^(nm-applet)$"
+          "opacity 0.7 0.7 0.7, match:class ^(io.github.kaii_lb.Overskride)$"
+          
+          # "opacity 1.0 override" becomes just "opaque" or "opacity 1.0"
+          "opacity 1.0 1.0 1.0, match:class ^(Alacritty)$"
+        ];
+
+        layerrule = [
+          # Syntax: effect value, match:namespace regex
+          "blur on, match:namespace ^(waybar)$"
+          "blur_popups on, match:namespace ^(waybar)$"
+          "ignore_alpha 0.2, match:namespace ^(waybar)$"
+          
+          "blur on, match:namespace ^(rofi)$"
+          "ignore_alpha 0, match:namespace ^(rofi)$" # ignorezero replaced by ignore_alpha 0
+          "dim_around on, match:namespace ^(rofi)$"
+          "blur_popups on, match:namespace ^(rofi)$"
+        ];
     };
+
+    extraConfig = ''
+        exec-once = pkill swaybg
+        exec-once = mpvpaper -o "no-audio --loop --hwdec=auto --speed=0.625" "*" ~/Pictures/backgrounds/sukuna-version5-96fps.mp4
+    '';
 
     # extraConfig = ''
     #   exec-once = pkill swaybg

@@ -138,6 +138,10 @@ in
 
   # List packages installed in system profile. To search, run: nix search <package>
   environment.systemPackages = with pkgs; [
+    teams-for-linux
+    handbrake # (ghb) video re-encoding
+    kdePackages.kdenlive # video editing
+    mpvpaper
     translate-shell
     libqalculate # natural language calculator (qalc)
     appimage-run
@@ -176,7 +180,7 @@ in
     obsidianWithFlag # unfree
     dropbox # unfree
     image-roll
-    mpv
+    # mpv
     waypaper
     adwaita-icon-theme
     swayosd
@@ -330,7 +334,7 @@ in
 
   nix.settings = {
     trusted-users = [ "root" "crybot" ]; # Add your username here if not already present
-    trusted-substituters = ["https://ai.cachix.org"];
+    trusted-substituters = ["https://ai.cachix.org" "https://cuda-maintainers.cachix.org"];
     trusted-public-keys = ["ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="];
   };
 
