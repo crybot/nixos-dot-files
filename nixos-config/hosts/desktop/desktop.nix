@@ -32,7 +32,7 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
   services.ollama = {
-    enable = false;
+    enable = true;
     # acceleration = "cuda";
   };
 

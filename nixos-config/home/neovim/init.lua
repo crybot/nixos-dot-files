@@ -66,6 +66,12 @@ local signs = {
 
 local colors = require("catppuccin.palettes").get_palette()
 
+-- VimTeX Configuration
+g.vimtex_view_method = "zathura"
+g.vimtex_compiler_method = "latexmk"
+g.vimtex_complete_enabled = 0 -- Disable completion (let LSP handle it)
+-- g.vimtex_quickfix_mode = 0 -- Optional: disable automatic quickfix window
+
 -- Disable netrw for nvim-tree/snacks
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
@@ -84,9 +90,6 @@ g.closetag_regions = {
 }
 g.closetag_shortcut = ">"
 g.closetag_close_shortcut = "<leader>>"
-
--- LaTeX viewer setting
-g.latex_view_method = "zathura"
 
 -- Assign icons to diagonistc signs
 vim.diagnostic.config({
@@ -171,6 +174,9 @@ map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Trouble: quic
 o.formatexpr = "v:lua.require'conform'.formatexpr()"
 map("n", "=", "gq", { desc = "Format with motion", remap = true })
 map("x", "=", "gq", { desc = "Format selection", remap = true }) -- TODO: add visual mode
+
+-- Reflow text (internal formatting, ignores conform/LSP)
+map({ "n", "x" }, "<leader>gw", "gw", { desc = "Reflow text (internal)" })
 
 -- Treesitter-textobjects (repeatable move actions)
 local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
@@ -462,6 +468,11 @@ require('typst-preview').setup {
 -- Enable Treesitter highlighting and indentation for all filetypes with a parser
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
+    local ft = vim.bo.filetype
+    if ft == "latex" or ft == "tex" then
+        vim.treesitter.stop() -- Let VimTeX handle highlighting for LaTeX
+        return
+    end
     pcall(vim.treesitter.start)
   end,
 })
@@ -743,13 +754,13 @@ lspconfig.enable("clangd")
 lspconfig.config("texlab", {
     capabilities = capabilities,
     on_attach = on_attach,
+    root_markers = { ".latexmkrc", ".git" },
     settings = {
         texlab = {
             build = {
+                onSave = false, -- Let VimTeX handle compilation
                 executable = "latexmk",
                 args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-                forwardSearchAfter = true,
-                onSave = true,
             },
             forwardSearch = {
                 executable = "zathura",
@@ -760,6 +771,22 @@ lspconfig.config("texlab", {
     },
 })
 lspconfig.enable("texlab")
+
+-- Ltex (Grammar)
+lspconfig.config("ltex", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { "ltex-ls-plus" }, -- Specify the correct binary name
+    root_markers = { ".git", ".latexmkrc" },
+    settings = {
+      ltex = {
+        enabled = { "latex", "tex", "bib", "markdown" },
+        language = "en-US",
+        checkFrequency = "save",
+      },
+    },
+})
+lspconfig.enable("ltex")
 
 -- lua-language-server (Lua)
 lspconfig.config("lua_ls", {
@@ -829,3 +856,28 @@ end
 
 -- Autocommand that triggers hover on CursorHold (after updatetime)
 vim.api.nvim_create_autocmd("CursorHold", { callback = show_hover_if_supported })
+
+-- Force K to hover in tex files (VimTeX default is docs)
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "tex",
+--   callback = function()
+--     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = true, desc = "LSP Hover" })
+--   end,
+-- })
+
+-- 2. Create an autocommand group to prevent duplicates
+local tex_sync_grp = vim.api.nvim_create_augroup("TexForwardSearch", { clear = true })
+
+-- 3. Trigger VimTeX's view command when the cursor rests
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--   group = tex_sync_grp,
+--   pattern = "*.tex",
+--   callback = function()
+--     -- Ensure VimTeX is loaded and active for this buffer before firing
+--     if vim.b.vimtex ~= nil then
+--       -- Silently trigger the forward search
+--       vim.cmd("silent! VimtexView")
+--     end
+--   end,
+--   desc = "Auto-sync Zathura to current line when cursor rests",
+-- })

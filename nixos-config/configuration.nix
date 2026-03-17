@@ -255,6 +255,7 @@ in
     font-awesome
     powerline-fonts
     powerline-symbols
+    source-sans-pro
   ];
 
   ############################### SERVICES ################################################

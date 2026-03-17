@@ -14,6 +14,7 @@
     ./fish/default.nix
     ./rofi/default.nix
     ./zotero/default.nix
+    ./webdav/default.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -25,7 +26,6 @@
   home.packages = with pkgs; [
     playerctl
   ];
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -233,7 +233,6 @@
       #   theme = "Default";
       # };
     };
-
   };
 
   services.swaync = {

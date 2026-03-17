@@ -12,6 +12,8 @@
         lua-language-server # lua language server
         tinymist
         texlab
+        ltex-ls-plus
+        texlive.combined.scheme-full
         pyright # python language server
         basedpyright
         biome # js/html/css language server
@@ -141,6 +143,7 @@
         # Typst live preview
         ############################
         typst-preview-nvim    # live Typst preview pane
+        vimtex                # LaTeX
 
         ############################
         # Plugin dependencies / libs
